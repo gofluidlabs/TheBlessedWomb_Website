@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
 import {
@@ -10,12 +11,12 @@ import {
 } from "./Icons";
 
 const LEFT = [
-  { label: "Modern Fertility Solutions", icon: Microscope },
+  { label: "Comprehensive Antenatal Care", icon: Microscope },
   { label: "Patient First Philosophy", icon: UserDoc },
 ];
 const RIGHT = [
-  { label: "Holistic Fertility Support", icon: MedKit },
-  { label: "Cutting Edge Technology", icon: HeartHands },
+  { label: "Pregnancy & Gynae Diagnostics", icon: MedKit },
+  { label: "Experienced & Caring Team", icon: HeartHands },
 ];
 
 export default function WhyChooseUs() {
@@ -28,7 +29,7 @@ export default function WhyChooseUs() {
           <h2 className="section-title">
             Why families trust our expertise
             <br />
-            <span className="accent">for their fertility</span>
+            <span className="accent">for their pregnancy care</span>
           </h2>
         </div>
 
@@ -50,9 +51,9 @@ export default function WhyChooseUs() {
           <div className="why-center reveal" data-anim="scale">
             <div className="why-doctor">
               <span className="doc-circle" />
-              <SmartImage
+              <img
                 src={IMG.whyDoctor}
-                alt="Fertility specialist"
+                alt="Dr. Jyoti Gupta"
                 className="doc-portrait"
               />
             </div>
@@ -79,17 +80,20 @@ export default function WhyChooseUs() {
               <Growth />
             </div>
             <h3>
-              <span data-count="1500" data-suffix="+">0+</span>
+              <span data-count="20" data-suffix="+">0+</span>
             </h3>
-            <p>Our Successful Projects Done</p>
+            <p>Years of Experience in Women&rsquo;s Healthcare</p>
           </div>
-          <a href="#" className="btn why-discover">
+          <SmartImage src={IMG.whyBaby} alt="" className="why-baby masked-clover" />
+        </div>
+
+        <div className="why-cta">
+          <Link href="/about#why" className="btn why-discover">
             Discover More
             <span className="btn-ico">
               <ArrowUpRight />
             </span>
-          </a>
-          <SmartImage src={IMG.whyBaby} alt="" className="why-baby masked-clover" />
+          </Link>
         </div>
       </div>
     </section>

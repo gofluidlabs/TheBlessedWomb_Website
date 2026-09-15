@@ -4,9 +4,9 @@ function Group() {
   return (
     <div className="marquee-item">
       <Dna className="m-ico" />
-      <span className="m-outline">IVF Success</span>
+      <span className="m-outline">Antenatal Care</span>
       <Flask className="m-ico" />
-      <span className="m-fill">Family Dreams</span>
+      <span className="m-fill">Complete Care of Motherhood</span>
       <Flask className="m-ico" />
       <span className="m-outline">Healthy Families</span>
     </div>

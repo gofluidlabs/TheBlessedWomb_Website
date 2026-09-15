@@ -1,5 +1,7 @@
+import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
+import { SOCIAL } from "@/lib/seo";
 import {
   Plus,
   Phone,
@@ -10,15 +12,15 @@ import {
 } from "./Icons";
 
 const MEMBERS = [
-  { name: "Leslie Alexander", role: "Doctor", img: IMG.team1, dark: false },
-  { name: "Ronald Richards", role: "Manager", img: IMG.team2, dark: false },
+  { name: "Dr. Jyoti Gupta", role: "Obstetrician & Gynaecologist", img: IMG.team1, dark: false },
+  { name: "Care Coordinator", role: "Patient Support", img: IMG.team2, dark: false },
   {
-    name: "Cody Fisher",
-    role: "Medical Assistant",
+    name: "Sonography Support",
+    role: "Ultrasound & Diagnostics",
     img: IMG.team3,
     dark: true,
   },
-  { name: "Ralph Edwards", role: "Senior Excitative", img: IMG.team4, dark: false },
+  { name: "Nursing Staff", role: "Antenatal Care", img: IMG.team4, dark: false },
 ];
 
 export default function Team() {
@@ -29,16 +31,17 @@ export default function Team() {
       <div className="container">
         <div className="team-head">
           <div className="reveal" data-anim="left">
-            <span className="eyebrow">Our Leadership</span>
+            <span className="eyebrow">Our Team</span>
             <h2 className="section-title">
-              Dedicated team creating
+              Dedicated care, every
               <br />
-              <span className="accent">new beginnings</span>
+              <span className="accent">step of the way</span>
             </h2>
           </div>
           <p className="th-note reveal" data-anim="right">
-            Our IVF treatments use cutting-edge technology to help you on your
-            journey to parenthood, with care tailored to your unique needs.
+            Our team supports Dr. Jyoti Gupta in providing antenatal care,
+            pregnancy scans and gynaecological services tailored to your
+            needs.
           </p>
         </div>
 
@@ -50,13 +53,28 @@ export default function Team() {
             >
               {m.dark ? (
                 <div className="team-social">
-                  <a href="#" aria-label="Facebook">
+                  <a
+                    href={SOCIAL.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                  >
                     <Facebook />
                   </a>
-                  <a href="#" aria-label="Twitter">
+                  <a
+                    href={SOCIAL.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Twitter"
+                  >
                     <Twitter />
                   </a>
-                  <a href="#" aria-label="Instagram">
+                  <a
+                    href={SOCIAL.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                  >
                     <Instagram />
                   </a>
                 </div>
@@ -77,16 +95,16 @@ export default function Team() {
         <div className="team-foot reveal">
           <div className="tf-avatars">
             <span className="av">
-              <SmartImage src={IMG.doc} alt="" />
+              <SmartImage src={IMG.doc} alt="Dr. Jyoti Gupta" />
             </span>
             <span className="av call">
               <Phone width={18} height={18} />
             </span>
           </div>
           <span>let&rsquo;s make something great work together.</span>
-          <a href="#" className="viewall">
-            View All Doctors <ArrowRight />
-          </a>
+          <Link href="/about" className="viewall">
+            Know More About Us <ArrowRight />
+          </Link>
         </div>
       </div>
     </section>

@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
+import { CLINIC, SOCIAL } from "@/lib/seo";
 import {
   ArrowUpRight,
   Location,
@@ -13,13 +15,20 @@ import {
   LinkedIn,
 } from "./Icons";
 
-const QUICK = ["About", "Our Service", "Our Project", "Our Team", "Contact"];
+const QUICK = [
+  { label: "About", href: "/about" },
+  { label: "Our Services", href: "/#services" },
+  { label: "Our Process", href: "/#process" },
+  { label: "Our Team", href: "/#team" },
+  { label: "FAQs", href: "/#faq" },
+  { label: "Clinic & Location", href: "/clinic" },
+];
 const SERVICES = [
-  "Fertility Treatment",
-  "Hormone Testing",
-  "Genetic Screening",
-  "Embryo Transfer",
-  "IVF Treatment",
+  "Antenatal Care",
+  "Pregnancy Scans & Ultrasound",
+  "Doppler Studies",
+  "Gynaecological Care",
+  "Infertility Care",
 ];
 
 export default function Footer() {
@@ -30,15 +39,15 @@ export default function Footer() {
         <SmartImage src={IMG.ctaBaby} alt="" className="cta-bg" />
         <img className="cta-stripe" src={IMG.ctaStripe} alt="" aria-hidden="true" />
         <div className="cta-left">
-          <h3>Personalized IVF solutions connect with us now</h3>
+          <h3>Comprehensive antenatal care, connect with us now</h3>
         </div>
         <div className="cta-right">
-          <a href="#" className="btn">
+          <Link href="/contact" className="btn">
             Appointment
             <span className="btn-ico">
               <ArrowUpRight />
             </span>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -46,10 +55,11 @@ export default function Footer() {
         <div className="container">
           <div className="footer-cols">
             <div className="reveal">
-              <h4>About Comapany</h4>
+              <h4>About The Blessed Womb</h4>
               <p>
-                To helping individuals and couples achieve their dream of
-                parenthood through advanced fertility care and compassion.
+                Comprehensive antenatal care and clinically indicated
+                pregnancy scans under the supervision of Dr. Jyoti Gupta —
+                complete care of motherhood.
               </p>
             </div>
 
@@ -57,8 +67,8 @@ export default function Footer() {
               <h4>Quick Link</h4>
               <ul className="footer-links">
                 {QUICK.map((l) => (
-                  <li key={l}>
-                    <a href="#">{l}</a>
+                  <li key={l.label}>
+                    <Link href={l.href}>{l.label}</Link>
                   </li>
                 ))}
               </ul>
@@ -69,7 +79,7 @@ export default function Footer() {
               <ul className="footer-links">
                 {SERVICES.map((l) => (
                   <li key={l}>
-                    <a href="#">{l}</a>
+                    <Link href="/#services">{l}</Link>
                   </li>
                 ))}
               </ul>
@@ -82,9 +92,10 @@ export default function Footer() {
                   <Location />
                 </span>
                 <p>
-                  1901 Thornridge Cir.
+                  {CLINIC.streetAddress},
                   <br />
-                  Shiloh Hawaii 81063
+                  {CLINIC.addressRegion} {CLINIC.postalCode}
+                  <br />({CLINIC.landmark})
                 </p>
               </div>
               <h4 style={{ marginTop: 10 }}>Phone</h4>
@@ -93,8 +104,8 @@ export default function Footer() {
                   <Phone />
                 </span>
                 <p>
-                  <strong>+880 1998-900100</strong>
-                  demo@example.com
+                  <strong>{CLINIC.phone}</strong>
+                  {CLINIC.primaryEmail}
                 </p>
               </div>
             </div>
@@ -102,19 +113,40 @@ export default function Footer() {
 
           <div className="footer-newsletter">
             <span className="fn-brand">
-              <img src={IMG.logoWhite} alt="Fertiora" className="fn-logo" />
+              <img src={IMG.logoMark} alt="The Blessed Womb" className="fn-logo" />
+              The Blessed Womb
             </span>
             <div className="footer-social">
-              <a href="#" aria-label="Twitter">
+              <a
+                href={SOCIAL.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter"
+              >
                 <Twitter />
               </a>
-              <a href="#" aria-label="Facebook">
+              <a
+                href={SOCIAL.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
                 <Facebook />
               </a>
-              <a href="#" aria-label="YouTube">
+              <a
+                href={SOCIAL.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+              >
                 <Youtube />
               </a>
-              <a href="#" aria-label="LinkedIn">
+              <a
+                href={SOCIAL.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <LinkedIn />
               </a>
             </div>
@@ -135,11 +167,11 @@ export default function Footer() {
           </div>
 
           <div className="footer-bottom">
-            <p>© Copyright 2026 by Company.com</p>
+            <p>© Copyright 2026 {CLINIC.name} — {CLINIC.legalName}</p>
             <div className="fb-links">
-              <a href="#">Terms &amp; Condition</a>
-              <a href="#">Privacy Policy</a>
-              <a href="#">Contact</a>
+              <Link href="/terms">Terms &amp; Condition</Link>
+              <Link href="/privacy-policy">Privacy Policy</Link>
+              <Link href="/contact">Contact</Link>
             </div>
           </div>
         </div>

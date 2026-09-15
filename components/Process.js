@@ -2,9 +2,9 @@ import { HeartHands, Microscope, Pregnant, Files, ArrowRight } from "./Icons";
 
 const STEPS = [
   { title: "Initial Consultation", icon: HeartHands, up: false },
-  { title: "Health Monitoring", icon: Microscope, up: true },
-  { title: "Fertility Assessment", icon: Pregnant, up: false, active: true },
-  { title: "Pregnancy Testing", icon: Files, up: true },
+  { title: "Antenatal Monitoring", icon: Microscope, up: true },
+  { title: "Pregnancy Scan & Ultrasound", icon: Pregnant, up: false, active: true },
+  { title: "Continued Care", icon: Files, up: true },
 ];
 
 export default function Process() {
@@ -14,9 +14,9 @@ export default function Process() {
         <div className="process-head reveal">
           <span className="eyebrow on-dark">Working Process</span>
           <h2 className="section-title on-dark">
-            Our proven fertility process
+            Our patient care process
             <br />
-            <span className="accent">focused on</span>
+            <span className="accent">focused on you</span>
           </h2>
         </div>
 
@@ -46,8 +46,8 @@ export default function Process() {
         </div>
 
         <p className="process-note reveal">
-          Let&rsquo;s turn these simple steps into stunning results. Contact us
-          now to begin your journey. <a href="#">Request a Quote</a>
+          Let&rsquo;s take these simple steps together. Contact us to begin
+          your care journey. <a href="#">Book an Appointment</a>
         </p>
       </div>
     </section>

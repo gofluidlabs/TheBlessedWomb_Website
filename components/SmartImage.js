@@ -17,6 +17,7 @@ export default function SmartImage({
   className = "",
   style,
   rounded,
+  priority = false,
 }) {
   const ref = useRef(null);
   const [failed, setFailed] = useState(false);
@@ -38,7 +39,8 @@ export default function SmartImage({
           ref={ref}
           src={src}
           alt={alt}
-          loading="lazy"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
           decoding="async"
           onError={() => setFailed(true)}
           onLoad={(e) => e.currentTarget.classList.add("loaded")}

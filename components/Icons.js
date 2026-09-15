@@ -47,6 +47,12 @@ export const Menu = (p) => (
   </svg>
 );
 
+export const ChevronDown = (p) => (
+  <svg viewBox="0 0 24 24" width="14" height="14" {...base} {...p}>
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
+
 export const HeartHands = (p) => (
   <svg viewBox="0 0 24 24" width="28" height="28" {...base} {...p}>
     <path d="M12 8.5c1.2-2 4.5-1.6 4.5 1 0 2-2.6 3.8-4.5 5-1.9-1.2-4.5-3-4.5-5 0-2.6 3.3-3 4.5-1z" />
@@ -187,10 +193,24 @@ export const LinkedIn = (p) => (
   </svg>
 );
 
+export const Milestone = (p) => (
+  <svg viewBox="0 0 24 24" width="26" height="26" {...base} {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M8.5 12.5l2.2 2.2L16 9.5" />
+  </svg>
+);
+
 export const Pregnant = (p) => (
   <svg viewBox="0 0 24 24" width="26" height="26" {...base} {...p}>
     <circle cx="12" cy="5" r="2" />
     <path d="M11 8c-1 1-2 3-2 6 2 1 2 1 2 3v4" />
     <path d="M11 11c2 0 4 1 4 3.5S13 18 11 18" />
+  </svg>
+);
+
+export const Clock = (p) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...base} {...p}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M12 7v5l3.5 2" />
   </svg>
 );

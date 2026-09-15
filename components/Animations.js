@@ -15,9 +15,17 @@ export default function Animations() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
     const ctx = gsap.context(() => {
       // ---- Scroll reveals ----
       gsap.utils.toArray(".reveal").forEach((el) => {
+        if (reduceMotion) {
+          gsap.set(el, { opacity: 1, x: 0, y: 0, scale: 1 });
+          return;
+        }
         const delay = parseFloat(el.dataset.delay || "0");
         const anim = el.dataset.anim || "up";
         const from = { opacity: 0, duration: 0.9, delay, ease: "power3.out" };
@@ -40,6 +48,10 @@ export default function Animations() {
       // ---- Stagger groups ----
       gsap.utils.toArray("[data-stagger]").forEach((group) => {
         const items = group.children;
+        if (reduceMotion) {
+          gsap.set(items, { opacity: 1, y: 0 });
+          return;
+        }
         gsap.from(items, {
           opacity: 0,
           y: 50,
@@ -54,6 +66,10 @@ export default function Animations() {
       gsap.utils.toArray("[data-count]").forEach((el) => {
         const end = parseFloat(el.dataset.count);
         const suffix = el.dataset.suffix || "";
+        if (reduceMotion) {
+          el.textContent = end.toLocaleString() + suffix;
+          return;
+        }
         const obj = { val: 0 };
         gsap.to(obj, {
           val: end,
@@ -67,19 +83,21 @@ export default function Animations() {
       });
 
       // ---- Marquee ----
-      gsap.utils.toArray(".marquee-track").forEach((track) => {
-        const dir = track.dataset.dir === "right" ? 1 : -1;
-        const half = track.scrollWidth / 2;
-        gsap.to(track, {
-          x: dir * -half,
-          duration: 24,
-          ease: "none",
-          repeat: -1,
-          modifiers: {
-            x: gsap.utils.unitize((x) => parseFloat(x) % half),
-          },
+      if (!reduceMotion) {
+        gsap.utils.toArray(".marquee-track").forEach((track) => {
+          const dir = track.dataset.dir === "right" ? 1 : -1;
+          const half = track.scrollWidth / 2;
+          gsap.to(track, {
+            x: dir * -half,
+            duration: 24,
+            ease: "none",
+            repeat: -1,
+            modifiers: {
+              x: gsap.utils.unitize((x) => parseFloat(x) % half),
+            },
+          });
         });
-      });
+      }
     });
 
     // ---- Header + back-to-top (plain listeners) ----
