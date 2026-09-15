@@ -22,6 +22,7 @@ const QUICK = [
   { label: "Our Team", href: "/#team" },
   { label: "FAQs", href: "/#faq" },
   { label: "Clinic & Location", href: "/clinic" },
+  { label: "Health Resources", href: "/blog" },
 ];
 const SERVICES = [
   "Antenatal Care",

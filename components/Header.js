@@ -25,6 +25,7 @@ const NAV = [
   { label: "About", key: "about", type: "mega" },
   { label: "Services", key: "services", type: "mega" },
   { label: "Process", href: "/process", type: "link" },
+  { label: "Blog", href: "/blog", type: "link" },
   { label: "FAQs", href: "/#faq", type: "link" },
   { label: "Team", href: "/#team", type: "link" },
 ];
@@ -181,7 +182,9 @@ export default function Header({ light = false }) {
         <nav ref={navRef} className={`main-nav ${mobileOpen ? "open" : ""}`}>
           {NAV.map((item) => {
             if (item.type === "link") {
-              const isActive = item.href === pathname;
+              const isActive =
+                item.href === pathname ||
+                (item.href !== "/" && pathname.startsWith(`${item.href}/`));
               return (
                 <Link
                   key={item.label}
