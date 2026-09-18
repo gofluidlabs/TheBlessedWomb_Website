@@ -12,7 +12,7 @@ import { buildMetadata } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 import { getAllPosts, getFeaturedPost, CATEGORIES } from "@/lib/blog";
 
-const TITLE = "Women's Health, Pregnancy & Fertility Resources | The Blessed Womb";
+const TITLE = "Women's Health, Pregnancy & Fertility Resources";
 const DESCRIPTION =
   "Evidence-informed articles on pregnancy, gynaecology, fertility and women's health from The Blessed Womb, Greater Noida — written and medically overseen by Dr. Jyoti Gupta.";
 
@@ -53,7 +53,10 @@ export default function BlogIndexPage() {
 
             {featured && (
               <div className="blog-featured reveal" data-anim="up">
-                <span className="eyebrow">Featured Article</span>
+                <div className="blog-featured-head">
+                  <span className="eyebrow">Featured Article</span>
+                  <h2 className="section-title">Start Here</h2>
+                </div>
                 <BlogCard post={featured} />
               </div>
             )}

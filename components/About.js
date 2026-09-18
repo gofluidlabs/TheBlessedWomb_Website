@@ -2,6 +2,7 @@ import Link from "next/link";
 import SmartImage from "./SmartImage";
 import BrandMark from "./BrandMark";
 import { IMG } from "@/lib/images";
+import { CLINIC, DOCTOR } from "@/lib/seo";
 import { HeartHands, Microscope, Phone, ArrowUpRight } from "./Icons";
 
 export default function About() {
@@ -54,7 +55,7 @@ export default function About() {
           </h2>
           <p className="about-desc">
             Dr. Jyoti Gupta is an experienced Obstetrician &amp; Gynaecologist
-            in Greater Noida with more than 20+ years of experience. Under
+            in Greater Noida with {DOCTOR.experienceSentence}. Under
             Dr. Jyoti Maternity, Infertility &amp; Ultrasound Centre, The
             Blessed Womb walks beside you through antenatal care and every
             step of your pregnancy journey.
@@ -96,7 +97,7 @@ export default function About() {
               </span>
               <div>
                 <span>Contact Us:</span>
-                <strong>+91 88826 63284</strong>
+                <strong>{CLINIC.phone}</strong>
               </div>
             </div>
           </div>

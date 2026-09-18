@@ -1,4 +1,5 @@
 import { Microscope, UserDoc, MedKit, HeartHands } from "./Icons";
+import { DOCTOR } from "@/lib/seo";
 
 const REASONS = [
   {
@@ -19,7 +20,7 @@ const REASONS = [
   {
     icon: HeartHands,
     title: "Experienced & Caring Team",
-    desc: "More than 20+ years of experience in women's healthcare.",
+    desc: `More than ${DOCTOR.experience} of experience in women's healthcare.`,
   },
 ];
 

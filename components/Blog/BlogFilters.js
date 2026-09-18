@@ -27,6 +27,7 @@ export default function BlogFilters({ posts, categories }) {
           <button
             type="button"
             className={`blog-pill ${activeCategory === "All" ? "active" : ""}`}
+            aria-pressed={activeCategory === "All"}
             onClick={() => setActiveCategory("All")}
           >
             All
@@ -36,6 +37,7 @@ export default function BlogFilters({ posts, categories }) {
               type="button"
               key={cat}
               className={`blog-pill ${activeCategory === cat ? "active" : ""}`}
+              aria-pressed={activeCategory === cat}
               onClick={() => setActiveCategory(cat)}
             >
               {cat}
@@ -54,6 +56,9 @@ export default function BlogFilters({ posts, categories }) {
         </label>
       </div>
 
+      <p className="sr-only" role="status" aria-live="polite">
+        {filtered.length} {filtered.length === 1 ? "article" : "articles"} found
+      </p>
       <BlogGrid posts={filtered} />
     </>
   );

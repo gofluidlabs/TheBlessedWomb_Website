@@ -8,7 +8,7 @@ import JsonLd from "@/components/JsonLd";
 import { buildMetadata } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
-const TITLE = "Contact & Book an Appointment — The Blessed Womb";
+const TITLE = "Contact & Book an Appointment";
 const DESCRIPTION =
   "Get in touch with The Blessed Womb, Dr. Jyoti Maternity, Infertility & Ultrasound Centre in Block D, Alpha I, Greater Noida. Call +91 88826 63284 or book a consultation.";
 

@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import { ArrowUpRight } from "@/components/Icons";
 
 export const metadata = {
-  title: "Page Not Found — The Blessed Womb",
+  title: "Page Not Found",
   robots: { index: false, follow: true },
 };
 

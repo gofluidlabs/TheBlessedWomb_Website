@@ -1,4 +1,5 @@
 import { IMG } from "@/lib/images";
+import { DOCTOR } from "@/lib/seo";
 
 export default function AboutDoctor() {
   return (
@@ -16,7 +17,7 @@ export default function AboutDoctor() {
           </p>
           <p className="about-desc" style={{ maxWidth: 560 }}>
             Dr. Jyoti Gupta is an experienced Obstetrician &amp; Gynaecologist
-            with more than 20+ years of experience, based in Greater Noida,
+            with {DOCTOR.experienceSentence}, based in Greater Noida,
             Uttar Pradesh. She is a women&rsquo;s healthcare specialist and an
             experienced pregnancy and antenatal care provider, as well as a
             provider of gynaecological care, pregnancy and

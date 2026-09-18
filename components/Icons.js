@@ -214,3 +214,20 @@ export const Clock = (p) => (
     <path d="M12 7v5l3.5 2" />
   </svg>
 );
+
+export const Home = (p) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...base} {...p}>
+    <path d="M3 11l9-7 9 7" />
+    <path d="M5 10v10h14V10" />
+    <path d="M10 20v-6h4v6" />
+  </svg>
+);
+
+export const Users = (p) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...base} {...p}>
+    <circle cx="9" cy="8" r="3.2" />
+    <path d="M3.5 19c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5" />
+    <path d="M15.5 5.3a3.2 3.2 0 0 1 0 6.2" />
+    <path d="M16.5 13.6c2.2.5 3.9 2.4 3.9 5.4" />
+  </svg>
+);

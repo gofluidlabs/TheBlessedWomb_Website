@@ -87,7 +87,7 @@ ul {
 }
 
 .section {
-  padding: 110px 0;
+  padding: clamp(56px, 4vw + 40px, 110px) 0;
   position: relative;
 }
 
@@ -134,13 +134,13 @@ ul {
 .btn {
   display: inline-flex;
   align-items: center;
-  gap: 14px;
+  gap: clamp(8px, 1.46vw, 14px);
   background: var(--coral);
   color: #fff;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: 16px;
-  padding: 12px 14px 12px 28px;
+  font-size: clamp(13px, 1.67vw, 16px);
+  padding: clamp(8px, 1.25vw, 12px) clamp(8px, 1.46vw, 14px) clamp(8px, 1.25vw, 12px) clamp(18px, 2.92vw, 28px);
   border-radius: 40px;
   border: none;
   cursor: pointer;
@@ -152,8 +152,8 @@ ul {
   box-shadow: 0 20px 30px -14px rgba(222, 122, 106, 0.6);
 }
 .btn .btn-ico {
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 4.17vw, 40px);
+  height: clamp(32px, 4.17vw, 40px);
   border-radius: 50%;
   background: #fff;
   color: var(--plum);
@@ -377,12 +377,11 @@ ul {
 .site-header.light .call-txt strong {
   color: var(--plum);
 }
-.nav-toggle {
+/* Rendered by MobileNav.js; shown only at ≤1250px (see that breakpoint
+   for the full app-style bottom-nav rules) — hidden here so it never
+   appears above the desktop nav's breakpoint. */
+.mobile-bottom-nav {
   display: none;
-  background: none;
-  border: none;
-  color: inherit;
-  cursor: pointer;
 }
 
 /* =========================================================
@@ -474,7 +473,8 @@ ul {
   min-width: 0;
   flex: 1;
 }
-.mega-link .ml-text h5 {
+.mega-link .ml-text .ml-title {
+  display: block;
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 15px;
@@ -528,30 +528,36 @@ ul {
 .mnav-footer-cta {
   display: none;
 }
-.mnav-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(59, 42, 77, 0.45);
-  z-index: 140;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-.mnav-backdrop.open {
-  opacity: 1;
-  pointer-events: auto;
-}
 
 /* =========================================================
    HERO
    ========================================================= */
+/* The whole hero is one proportional composition: every nested element
+   below is sized with the same vw-based fluid unit, so the entire thing
+   scales together continuously as viewport width changes, instead of the
+   box narrowing while its contents stay fixed size. The box's own height
+   is intentionally NOT locked to a fixed aspect-ratio — the header above
+   it needs a roughly constant amount of clearance regardless of scale,
+   which a strict ratio can't accommodate at small sizes without either
+   overflowing or crushing the text against the header. Instead, height
+   is left to the (fully fluid) padding + text content below, which still
+   shrinks smoothly and continuously with width — just not at a
+   perfectly constant ratio — avoiding the old bug where height froze
+   solid while width kept shrinking. Calibrated so the numbers match the
+   original fixed desktop design exactly at a ~1920px viewport (1872px
+   hero width after gutters, 880px tall). */
 .hero {
   position: relative;
-  min-height: 880px;
-  margin: 24px;
-  border-radius: 40px;
+  max-width: 1872px;
+  width: calc(100% - clamp(24px, 2.5vw, 48px));
+  margin-inline: auto;
+  border-radius: clamp(13px, 4.17vw, 40px);
   overflow: hidden;
   background: var(--plum);
+}
+.hero-visual {
+  position: absolute;
+  inset: 0;
 }
 .hero-bg {
   position: absolute;
@@ -579,7 +585,7 @@ ul {
   position: absolute;
   top: 34%;
   right: 5%;
-  width: 150px;
+  width: clamp(50px, 15.63vw, 150px);
   opacity: 0.5;
   z-index: 2;
 }
@@ -587,7 +593,7 @@ ul {
   position: absolute;
   left: 27%;
   top: 45%;
-  width: 130px;
+  width: clamp(43px, 13.54vw, 130px);
   z-index: 2;
   filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.25));
   animation: floaty 5s ease-in-out infinite;
@@ -600,73 +606,129 @@ ul {
 .hero-content {
   position: relative;
   z-index: 3;
-  min-height: 880px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-top: 120px;
-  padding-bottom: 220px;
+  /* padding-top floor is header-clearance, not composition scale: the
+     fixed header's own height stays roughly constant regardless of the
+     hero's proportional size, so this can't shrink below what's needed
+     to clear it. padding-bottom floor reserves room for the doctor-card
+     + subtext overlay stack below, which needs similar real estate at
+     any scale to avoid colliding with the title above it. */
+  padding-top: clamp(90px, 8.33vw, 120px);
+  padding-bottom: clamp(108px, 20vw, 220px);
 }
 .hero-copy {
   max-width: 620px;
 }
 .hero-title {
   color: #fff;
-  font-size: clamp(48px, 6.5vw, 96px);
+  font-size: clamp(26px, 6.5vw, 96px);
   font-weight: 600;
   line-height: 0.98;
   letter-spacing: -2px;
 }
 .hero-sub {
   position: absolute;
-  bottom: 70px;
-  left: 24px;
+  bottom: clamp(10px, 3.65vw, 70px);
+  left: clamp(6px, 1.25vw, 24px);
+  right: clamp(100px, 40vw, 340px);
   color: rgba(255, 255, 255, 0.92);
-  font-size: 20px;
+  font-size: clamp(11px, 1vw + 8px, 20px);
   font-weight: 500;
+  line-height: 1.45;
   max-width: 560px;
   margin: 0;
-  padding: 0 24px;
+  padding: 0 clamp(6px, 1.25vw, 24px);
   z-index: 3;
 }
 .hero-doctor-card {
   position: absolute;
-  right: 34px;
-  bottom: 48px;
+  right: clamp(8px, 1.77vw, 34px);
+  bottom: clamp(8px, 2.5vw, 48px);
   z-index: 4;
   display: flex;
   align-items: center;
-  gap: 20px;
+  /* Coefficients throughout this card are chosen so the desktop
+     (ceiling) value engages around 960px width and the mobile (floor)
+     value is the true value the same formula would give at 320px —
+     i.e. the floor is a safety net for widths narrower than we
+     design for, not an early flattening point. Text sizes keep a
+     slightly higher floor than pure math for legibility. */
+  gap: clamp(7px, 2.08vw, 20px);
   background: #fff;
-  border-radius: 22px;
-  padding: 18px;
+  border-radius: clamp(7px, 2.29vw, 22px);
+  padding: clamp(6px, 1.875vw, 18px);
   box-shadow: var(--shadow-soft);
 }
 .hero-doctor-card .doc-photo {
-  width: 96px;
-  height: 104px;
-  border-radius: 18px;
+  width: clamp(32px, 10vw, 96px);
+  height: clamp(35px, 10.83vw, 104px);
+  border-radius: clamp(6px, 1.875vw, 18px);
   flex-shrink: 0;
 }
-.hero-doctor-card h4 {
-  font-size: 26px;
+.hero-doctor-card .doc-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--plum);
+  line-height: 1.1;
+  font-size: clamp(13px, 2.71vw, 26px);
   margin-bottom: 2px;
 }
 .hero-doctor-card p {
   color: var(--muted);
-  font-size: 15px;
-  margin-bottom: 10px;
+  font-size: clamp(11px, 1.56vw, 15px);
+  line-height: 1.3;
+  margin-bottom: clamp(3px, 1.04vw, 10px);
 }
 .hero-doctor-card .book {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   color: var(--plum);
   font-family: var(--font-display);
   font-weight: 600;
+  font-size: clamp(11px, 1.67vw, 16px);
+}
+.hero-doctor-card .book svg {
+  width: clamp(11px, 1.875vw, 18px);
+  height: clamp(11px, 1.875vw, 18px);
 }
 .hero-doctor-card .book:hover {
   color: var(--coral);
+}
+/* Desktop only (matches the site's mobile/desktop boundary at 1250px).
+   The existing width formula subtracts clamp(24px,2.5vw,48px) total and
+   centers with margin-inline:auto, so each side gets half that as its
+   gutter — mirrored here with the same half-amount as a top/bottom
+   margin, then the height target itself drops by the full clamp amount
+   (top + bottom together) so the card's outer edges still line up with
+   the viewport the same way the sides already do, instead of overshooting
+   past the bottom of the screen. min-height (not a hard height) so
+   content that ever needs more than that on an unusual aspect ratio
+   isn't clipped by .hero's own overflow:hidden. */
+@media (min-width: 1251px) {
+  .hero {
+    margin-block: calc(clamp(24px, 2.5vw, 48px) / 2);
+    min-height: calc(100vh - clamp(24px, 2.5vw, 48px));
+  }
+}
+/* .hero's height is content-driven (padding + title), not tied to a
+   fixed ratio, so between roughly 512px and 1250px the box ends up
+   proportionally wider than the background photo (1880x968) — cover-fit
+   then crops top/bottom instead of the sides. With object-position's
+   vertical anchor at the default "center", half of that crop comes off
+   the top, cutting into the subject's hairline (she sits very close to
+   the top edge of the source photo). Anchoring to "top" instead means
+   whatever vertical cropping does occur comes entirely off the bottom
+   (bed/blanket/hands) rather than her head, regardless of how the ratio
+   shifts across this range. Scoped to ≤1250px only — desktop's own
+   ≥1251px rule above already keeps the box proportionally taller there,
+   so the existing "center" there is already safe and left untouched. */
+@media (max-width: 1250px) {
+  .hero-bg img {
+    object-position: top right;
+  }
 }
 
 /* =========================================================
@@ -678,14 +740,14 @@ ul {
 .about-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 70px;
+  gap: clamp(28px, 7.3vw, 70px);
   align-items: center;
 }
 .about-gallery {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: clamp(10px, 2.08vw, 20px);
 }
 .about-gallery .g-tall {
   grid-row: span 2;
@@ -730,29 +792,31 @@ ul {
   }
 }
 .about-content .section-title {
-  margin-top: 16px;
+  margin-top: clamp(8px, 1.67vw, 16px);
 }
 .about-desc {
   color: var(--muted);
   max-width: 480px;
+  font-size: clamp(14px, 1vw + 8px, 16px);
+  line-height: 1.6;
 }
 .about-divider {
   height: 1px;
   background: var(--line);
-  margin: 34px 0;
+  margin: clamp(18px, 3.54vw, 34px) 0;
 }
 .about-features {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 26px;
+  gap: clamp(14px, 2.71vw, 26px);
 }
 .feature {
   display: flex;
-  gap: 16px;
+  gap: clamp(10px, 1.67vw, 16px);
 }
 .feature .feat-ico {
-  width: 62px;
-  height: 62px;
+  width: clamp(40px, 6.46vw, 62px);
+  height: clamp(40px, 6.46vw, 62px);
   border-radius: 50%;
   flex-shrink: 0;
   display: grid;
@@ -765,43 +829,44 @@ ul {
   color: var(--coral);
 }
 .feature h4 {
-  font-size: 20px;
+  font-size: clamp(15px, 2.08vw, 20px);
   margin-bottom: 2px;
 }
 .feature p {
   color: var(--muted);
-  font-size: 15px;
+  font-size: clamp(12px, 1.56vw, 15px);
   line-height: 1.5;
 }
 .about-cta {
-  margin-top: 44px;
+  margin-top: clamp(20px, 4.58vw, 44px);
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: clamp(14px, 3.54vw, 34px);
   flex-wrap: wrap;
 }
 .about-contact {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(10px, 1.67vw, 16px);
 }
 .about-contact .c-ico {
-  width: 58px;
-  height: 58px;
+  width: clamp(40px, 6.04vw, 58px);
+  height: clamp(40px, 6.04vw, 58px);
   border-radius: 50%;
   background: var(--plum);
   color: #fff;
   display: grid;
   place-items: center;
+  flex-shrink: 0;
 }
 .about-contact span {
   color: var(--muted);
-  font-size: 14px;
+  font-size: clamp(11px, 0.94vw, 14px);
   display: block;
 }
 .about-contact strong {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(15px, 1.46vw, 22px);
   color: var(--plum);
 }
 
@@ -815,14 +880,14 @@ ul {
 .services-head {
   text-align: center;
   max-width: 760px;
-  margin: 0 auto 60px;
+  margin: 0 auto clamp(28px, 6.25vw, 60px);
 }
 .services-carousel {
   position: relative;
 }
 .services-grid {
   display: flex;
-  gap: 26px;
+  gap: clamp(14px, 2.71vw, 26px);
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x proximity;
@@ -837,7 +902,7 @@ ul {
 .service-card {
   background: #fff;
   border-radius: var(--radius);
-  padding: 34px 28px;
+  padding: clamp(16px, 3.54vw, 34px) clamp(14px, 2.92vw, 28px);
   position: relative;
   box-shadow: var(--shadow-card);
   transition: transform 0.4s, background 0.35s;
@@ -855,36 +920,36 @@ ul {
 }
 .service-card .svc-plus {
   position: absolute;
-  top: 26px;
-  right: 26px;
-  width: 46px;
-  height: 46px;
+  top: clamp(14px, 2.71vw, 26px);
+  right: clamp(14px, 2.71vw, 26px);
+  width: clamp(32px, 4.79vw, 46px);
+  height: clamp(32px, 4.79vw, 46px);
   border-radius: 50%;
   background: var(--coral);
   color: #fff;
   display: grid;
   place-items: center;
-  font-size: 24px;
+  font-size: clamp(17px, 2.5vw, 24px);
   transition: background 0.35s;
 }
 .service-card:hover .svc-plus {
   background: var(--plum-deep);
 }
 .service-card h3 {
-  font-size: 25px;
+  font-size: clamp(17px, 1.8vw + 14px, 25px);
   max-width: 78%;
-  margin-bottom: 22px;
+  margin-bottom: clamp(12px, 2.29vw, 22px);
   transition: color 0.35s;
 }
 .service-card .svc-img {
-  height: 210px;
+  aspect-ratio: 16 / 9;
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: clamp(14px, 2.5vw, 24px);
 }
 .service-card .svc-img-inner {
   position: absolute;
   inset: 0;
-  border-radius: 20px;
+  border-radius: clamp(12px, 2.08vw, 20px);
   overflow: hidden;
 }
 .service-card .svc-img-inner .smart-img {
@@ -897,16 +962,16 @@ ul {
 }
 .service-card .svc-badge {
   position: absolute;
-  left: 18px;
-  bottom: -22px;
-  width: 56px;
-  height: 56px;
+  left: clamp(10px, 1.875vw, 18px);
+  bottom: clamp(-16px, -2.29vw, -22px);
+  width: clamp(38px, 5.83vw, 56px);
+  height: clamp(38px, 5.83vw, 56px);
   border-radius: 50%;
   background: var(--coral);
   color: #fff;
   display: grid;
   place-items: center;
-  border: 4px solid #fff;
+  border: 3px solid #fff;
   transition: border-color 0.35s;
 }
 .service-card:hover .svc-badge {
@@ -914,14 +979,14 @@ ul {
 }
 .service-card ul {
   display: grid;
-  gap: 14px;
-  margin-top: 12px;
+  gap: clamp(8px, 1.46vw, 14px);
+  margin-top: clamp(6px, 1.25vw, 12px);
 }
 .service-card li {
   position: relative;
-  padding-left: 22px;
+  padding-left: clamp(16px, 2.29vw, 22px);
   color: var(--text);
-  font-size: 15px;
+  font-size: clamp(12px, 1.56vw, 15px);
   transition: color 0.35s;
 }
 .service-card li::before {
@@ -935,14 +1000,14 @@ ul {
   background: var(--coral);
 }
 .service-card .svc-more {
-  margin-top: 26px;
-  padding-top: 18px;
+  margin-top: clamp(14px, 2.71vw, 26px);
+  padding-top: clamp(10px, 1.875vw, 18px);
   border-top: 1px solid var(--line);
   display: flex;
   justify-content: flex-end;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 13px;
+  font-size: clamp(11px, 0.83vw, 13px);
   letter-spacing: 1px;
   color: var(--plum);
   transition: color 0.35s, border-color 0.35s;
@@ -951,11 +1016,9 @@ ul {
   border-color: rgba(255, 255, 255, 0.15);
   color: #fff;
 }
-.services-edge-arrow {
+.services-edge-arrow,
+.process-edge-arrow {
   position: absolute;
-  top: 50%;
-  right: 16px;
-  transform: translateY(-50%);
   width: 72px;
   height: 72px;
   border-radius: 50%;
@@ -971,11 +1034,31 @@ ul {
   z-index: 5;
   transition: background 0.25s, color 0.25s;
 }
-.services-edge-arrow svg {
+.services-edge-arrow {
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+/* Bottom-right corner of the carousel instead of the vertically-centered
+   placement above — reads better against the short card row here rather
+   than floating mid-height over the card content. */
+.process-edge-arrow {
+  bottom: 6px;
+  right: 6px;
+  width: 58px;
+  height: 58px;
+}
+.services-edge-arrow svg,
+.process-edge-arrow svg {
   width: 26px;
   height: 26px;
 }
-.services-edge-arrow:hover {
+.process-edge-arrow svg {
+  width: 20px;
+  height: 20px;
+}
+.services-edge-arrow:hover,
+.process-edge-arrow:hover {
   background: var(--coral);
   color: #fff;
 }
@@ -990,27 +1073,27 @@ ul {
 .why-head {
   text-align: center;
   max-width: 760px;
-  margin: 0 auto 40px;
+  margin: 0 auto clamp(20px, 4.17vw, 40px);
 }
 .why-body {
   position: relative;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: start;
-  gap: 30px;
+  gap: clamp(16px, 3.13vw, 30px);
 }
 .why-col {
   display: grid;
-  gap: 26px;
+  gap: clamp(12px, 2.71vw, 26px);
   padding-top: 60px;
 }
 .why-pill {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(10px, 1.67vw, 16px);
   background: var(--pink-tint);
   border-radius: 44px;
-  padding: 14px 26px;
+  padding: clamp(10px, 1.46vw, 14px) clamp(16px, 2.71vw, 26px);
   box-shadow: var(--shadow-card);
 }
 .why-col.right .why-pill {
@@ -1018,8 +1101,8 @@ ul {
   text-align: right;
 }
 .why-pill .p-ico {
-  width: 52px;
-  height: 52px;
+  width: clamp(38px, 5.42vw, 52px);
+  height: clamp(38px, 5.42vw, 52px);
   border-radius: 50%;
   background: #fff;
   color: var(--coral);
@@ -1030,7 +1113,7 @@ ul {
 .why-pill span {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 19px;
+  font-size: clamp(14px, 1.98vw, 19px);
   color: var(--plum);
 }
 .why-center {
@@ -1039,59 +1122,36 @@ ul {
   width: 100%;
   max-width: 520px;
 }
-.why-doctor {
-  position: relative;
-  z-index: 2;
-  width: 100%;
-  height: 520px;
-}
-.why-doctor .doc-circle {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: var(--coral);
-  z-index: -1;
-}
-.why-doctor .doc-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom;
-  filter: drop-shadow(0 30px 40px rgba(59, 42, 77, 0.25));
-}
 .why-stats {
   position: relative;
   z-index: 1;
   margin-top: -210px;
   background: var(--plum);
-  border-radius: 30px;
-  padding: 60px;
+  border-radius: clamp(18px, 3.13vw, 30px);
+  padding: clamp(24px, 6.25vw, 60px);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  gap: 20px;
+  gap: clamp(10px, 2.08vw, 20px);
 }
 .why-stat h3 {
   color: #fff;
-  font-size: 60px;
+  font-size: clamp(32px, 6.25vw, 60px);
   font-weight: 700;
 }
 .why-stat p {
   color: rgba(255, 255, 255, 0.8);
+  font-size: clamp(12px, 1.04vw, 16px);
 }
 .why-stat .stat-ico {
   color: var(--coral);
-  margin-bottom: 8px;
+  margin-bottom: clamp(4px, 0.83vw, 8px);
 }
 .why-baby {
   grid-column: 3;
   justify-self: end;
-  width: 220px;
-  height: 220px;
+  width: min(220px, 50vw);
+  aspect-ratio: 1;
 }
 
 /* =========================================================
@@ -1147,7 +1207,16 @@ ul {
 .process-head {
   text-align: center;
   max-width: 760px;
-  margin: 0 auto 70px;
+  margin: 0 auto clamp(28px, 7.29vw, 70px);
+}
+.process-carousel {
+  position: relative;
+}
+/* Only meaningful once .process-steps becomes a horizontal scroller on
+   mobile (≤620px) — hidden by default since the grid layout at every
+   wider breakpoint has nothing to "scroll next" through. */
+.process-edge-arrow {
+  display: none;
 }
 .process-steps {
   display: grid;
@@ -1160,14 +1229,14 @@ ul {
   position: relative;
 }
 .p-step .p-circle {
-  width: 150px;
-  height: 150px;
+  width: clamp(70px, 15.63vw, 150px);
+  height: clamp(70px, 15.63vw, 150px);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   display: grid;
   place-items: center;
-  margin: 0 auto 26px;
+  margin: 0 auto clamp(12px, 2.71vw, 26px);
   color: #fff;
   transition: background 0.35s;
 }
@@ -1178,12 +1247,12 @@ ul {
 }
 .p-step h4 {
   color: #fff;
-  font-size: 23px;
-  margin-bottom: 10px;
+  font-size: clamp(16px, 2.4vw, 23px);
+  margin-bottom: clamp(4px, 1.04vw, 10px);
 }
 .p-step p {
   color: rgba(255, 255, 255, 0.65);
-  font-size: 15px;
+  font-size: clamp(12px, 1.56vw, 15px);
   max-width: 220px;
   margin: 0 auto;
 }
@@ -1200,7 +1269,8 @@ ul {
 .process-note {
   text-align: center;
   color: rgba(255, 255, 255, 0.85);
-  margin-top: 70px;
+  margin-top: clamp(28px, 7.29vw, 70px);
+  font-size: clamp(13px, 1.15vw, 16px);
   max-width: 640px;
   margin-left: auto;
   margin-right: auto;
@@ -1219,26 +1289,26 @@ ul {
 .faq-grid {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
-  gap: 60px;
+  gap: clamp(24px, 6.25vw, 60px);
   align-items: start;
 }
 .faq-left .section-title {
   margin-top: 18px;
 }
 .faq-photo {
-  margin-top: 40px;
-  width: 340px;
-  height: 340px;
+  margin-top: clamp(20px, 4.17vw, 40px);
+  width: min(340px, 65vw);
+  aspect-ratio: 1;
   border-radius: 50%;
   position: relative;
 }
 .faq-list {
   display: grid;
-  gap: 18px;
+  gap: clamp(10px, 1.875vw, 18px);
 }
 .faq-item {
   background: var(--pink-tint);
-  border-radius: 20px;
+  border-radius: clamp(14px, 2.08vw, 20px);
   padding: 4px;
   overflow: hidden;
   transition: background 0.35s;
@@ -1250,20 +1320,20 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
-  padding: 22px 26px;
+  gap: clamp(12px, 2.08vw, 20px);
+  padding: clamp(14px, 2.29vw, 22px) clamp(16px, 2.71vw, 26px);
   cursor: pointer;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 20px;
+  font-size: clamp(15px, 1vw + 14px, 20px);
   color: var(--plum);
 }
 .faq-item.open .faq-q {
   color: #fff;
 }
 .faq-toggle {
-  width: 36px;
-  height: 36px;
+  width: clamp(28px, 3.75vw, 36px);
+  height: clamp(28px, 3.75vw, 36px);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -1282,8 +1352,9 @@ ul {
   transition: max-height 0.4s ease;
 }
 .faq-a-inner {
-  padding: 0 26px 24px;
+  padding: 0 clamp(16px, 2.71vw, 26px) clamp(14px, 2.5vw, 24px);
   color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(13px, 1.04vw, 16px);
 }
 
 /* =========================================================
@@ -1296,14 +1367,19 @@ ul {
 .team-head {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
-  gap: 40px;
+  gap: clamp(18px, 4.17vw, 40px);
   align-items: center;
-  margin-bottom: 60px;
+  margin-bottom: clamp(28px, 6.25vw, 60px);
 }
 .team-head .th-note {
   color: var(--muted);
   border-left: 3px solid var(--coral);
   padding-left: 20px;
+}
+/* Mobile (≤620px) swaps this grid out for the .team-coverflow stacked
+   carousel below — see its rules further down. */
+.team-coverflow {
+  display: none;
 }
 .team-grid {
   display: grid;
@@ -1313,7 +1389,7 @@ ul {
 .team-card {
   background: var(--pink-tint);
   border-radius: var(--radius);
-  padding: 22px;
+  padding: clamp(14px, 2.29vw, 22px);
   position: relative;
   overflow: hidden;
   transition: transform 0.4s;
@@ -1326,36 +1402,36 @@ ul {
 }
 .team-plus {
   position: absolute;
-  top: 22px;
-  right: 22px;
-  width: 44px;
-  height: 44px;
+  top: clamp(14px, 2.29vw, 22px);
+  right: clamp(14px, 2.29vw, 22px);
+  width: clamp(34px, 4.58vw, 44px);
+  height: clamp(34px, 4.58vw, 44px);
   border-radius: 50%;
   background: #fff;
   color: var(--plum);
   display: grid;
   place-items: center;
-  font-size: 22px;
+  font-size: clamp(17px, 2.29vw, 22px);
   z-index: 3;
 }
 .team-photo {
-  width: 200px;
-  height: 200px;
+  width: min(200px, 45vw);
+  aspect-ratio: 1;
   border-radius: 50%;
-  margin: 20px auto 26px;
+  margin: clamp(12px, 2.08vw, 20px) auto clamp(16px, 2.71vw, 26px);
 }
 .team-card.dark .team-photo {
   width: 100%;
-  height: 260px;
+  aspect-ratio: 8 / 7;
   border-radius: 20px;
-  margin: 0 0 20px;
+  margin: 0 0 clamp(12px, 2.08vw, 20px);
 }
 .team-info h4 {
-  font-size: 23px;
+  font-size: clamp(19px, 1vw + 16px, 23px);
 }
 .team-info span {
   color: var(--muted);
-  font-size: 15px;
+  font-size: clamp(12px, 1.56vw, 15px);
 }
 .team-card.dark .team-info h4 {
   color: #fff;
@@ -1365,15 +1441,15 @@ ul {
 }
 .team-social {
   position: absolute;
-  top: 22px;
-  right: 22px;
+  top: clamp(14px, 2.29vw, 22px);
+  right: clamp(14px, 2.29vw, 22px);
   display: grid;
-  gap: 10px;
+  gap: clamp(7px, 1.04vw, 10px);
   z-index: 3;
 }
 .team-social a {
-  width: 40px;
-  height: 40px;
+  width: clamp(32px, 4.17vw, 40px);
+  height: clamp(32px, 4.17vw, 40px);
   border-radius: 50%;
   background: #fff;
   color: var(--plum);
@@ -1386,14 +1462,14 @@ ul {
   color: #fff;
 }
 .team-foot {
-  margin: 100px auto 0;
+  margin: clamp(40px, 10.42vw, 100px) auto 0;
   max-width: 620px;
   background: var(--pink-tint);
   border-radius: 44px;
-  padding: 12px 30px 12px 12px;
+  padding: clamp(8px, 1.25vw, 12px) clamp(18px, 3.13vw, 30px) clamp(8px, 1.25vw, 12px) clamp(8px, 1.25vw, 12px);
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: clamp(10px, 1.67vw, 16px);
   justify-content: center;
 }
 .team-foot .tf-avatars {
@@ -1401,8 +1477,8 @@ ul {
   align-items: center;
 }
 .team-foot .tf-avatars .av {
-  width: 46px;
-  height: 46px;
+  width: clamp(36px, 4.79vw, 46px);
+  height: clamp(36px, 4.79vw, 46px);
   border-radius: 50%;
   border: 3px solid var(--pink-tint);
   margin-left: -14px;
@@ -1434,19 +1510,19 @@ ul {
   background: var(--plum);
   border-radius: 40px 40px 0 0;
   position: relative;
-  margin-top: 120px;
+  margin-top: clamp(48px, 12.5vw, 120px);
   display: flow-root;
 }
 .cta-banner {
   position: relative;
-  margin: -80px 24px 0;
+  margin: clamp(-40px, -8.33vw, -80px) clamp(14px, 2.5vw, 24px) 0;
   z-index: 3;
-  border-radius: 26px;
+  border-radius: clamp(16px, 2.71vw, 26px);
   overflow: hidden;
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  min-height: 190px;
+  min-height: clamp(140px, 19.79vw, 190px);
   background: linear-gradient(100deg, var(--coral) 0%, var(--coral) 45%, transparent 45%);
 }
 .cta-banner .cta-bg {
@@ -1455,17 +1531,17 @@ ul {
   z-index: -1;
 }
 .cta-banner .cta-left {
-  padding: 40px 50px;
+  padding: clamp(20px, 4.17vw, 40px) clamp(20px, 5.21vw, 50px);
 }
 .cta-banner h3 {
   color: #fff;
-  font-size: clamp(26px, 3vw, 38px);
+  font-size: clamp(20px, 3vw, 38px);
   max-width: 380px;
 }
 .cta-banner .cta-right {
   display: flex;
   justify-content: flex-end;
-  padding: 0 50px;
+  padding: 0 clamp(16px, 5.21vw, 50px);
 }
 .cta-banner .btn {
   background: rgba(255, 255, 255, 0.16);
@@ -1478,28 +1554,29 @@ ul {
 .footer {
   position: relative;
   z-index: 2;
-  padding: 120px 0 40px;
+  padding: clamp(48px, 12.5vw, 120px) 0 clamp(28px, 4.17vw, 40px);
 }
 .footer-cols {
   display: grid;
   grid-template-columns: 1.4fr 1fr 1fr 1.1fr;
-  gap: 40px;
-  padding-bottom: 60px;
+  gap: clamp(22px, 4.17vw, 40px);
+  padding-bottom: clamp(28px, 6.25vw, 60px);
 }
 .footer h4 {
   color: #fff;
-  font-size: 22px;
-  margin-bottom: 26px;
+  font-size: clamp(17px, 2.29vw, 22px);
+  margin-bottom: clamp(14px, 2.71vw, 26px);
 }
 .footer p,
 .footer a,
 .footer li {
   color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(13px, 1.04vw, 16px);
 }
 .footer-links li {
   position: relative;
-  padding-left: 22px;
-  margin-bottom: 14px;
+  padding-left: clamp(16px, 2.29vw, 22px);
+  margin-bottom: clamp(8px, 1.46vw, 14px);
   transition: color 0.25s, padding 0.25s;
 }
 .footer-links li::before {
@@ -1518,8 +1595,8 @@ ul {
 }
 .footer-contact {
   display: flex;
-  gap: 14px;
-  margin-bottom: 22px;
+  gap: clamp(10px, 1.46vw, 14px);
+  margin-bottom: clamp(14px, 2.29vw, 22px);
 }
 .footer-contact .fc-ico {
   color: var(--coral);
@@ -1535,28 +1612,28 @@ ul {
 .footer-newsletter {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 34px 0;
+  padding: clamp(18px, 3.54vw, 34px) 0;
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: clamp(16px, 4.17vw, 40px);
   flex-wrap: wrap;
 }
 .footer-newsletter .fn-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: clamp(8px, 1.25vw, 12px);
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 28px;
+  font-size: clamp(20px, 2.92vw, 28px);
   color: #fff;
 }
 .footer-social {
   display: flex;
-  gap: 12px;
+  gap: clamp(8px, 1.25vw, 12px);
 }
 .footer-social a {
-  width: 44px;
-  height: 44px;
+  width: clamp(36px, 4.58vw, 44px);
+  height: clamp(36px, 4.58vw, 44px);
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.1);
   display: grid;
@@ -1570,7 +1647,7 @@ ul {
 .footer-newsletter h5 {
   color: #fff;
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(16px, 2.29vw, 22px);
   margin-left: auto;
 }
 .newsletter-form {
@@ -1578,7 +1655,7 @@ ul {
   align-items: center;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 40px;
-  padding: 8px 8px 8px 24px;
+  padding: clamp(6px, 0.83vw, 8px) clamp(6px, 0.83vw, 8px) clamp(6px, 0.83vw, 8px) clamp(16px, 2.5vw, 24px);
   min-width: 340px;
 }
 .newsletter-form input {
@@ -1608,13 +1685,14 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 30px;
+  padding-top: clamp(18px, 3.13vw, 30px);
   flex-wrap: wrap;
-  gap: 16px;
+  gap: clamp(10px, 1.67vw, 16px);
 }
 .footer-bottom .fb-links {
   display: flex;
-  gap: 30px;
+  gap: clamp(14px, 3.13vw, 30px);
+  flex-wrap: wrap;
 }
 .footer-bottom .fb-links a:hover {
   color: #fff;
@@ -1623,10 +1701,10 @@ ul {
 /* ---- Back to top ---- */
 .to-top {
   position: fixed;
-  right: 26px;
-  bottom: 26px;
-  width: 50px;
-  height: 50px;
+  right: clamp(14px, 2.71vw, 26px);
+  bottom: clamp(14px, 2.71vw, 26px);
+  width: clamp(38px, 5.21vw, 50px);
+  height: clamp(38px, 5.21vw, 50px);
   border-radius: 50%;
   background: var(--coral);
   color: #fff;
@@ -1664,7 +1742,7 @@ ul {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 240px;
+  width: min(240px, 38vw);
   opacity: 0.5;
   z-index: 0;
   pointer-events: none;
@@ -1695,7 +1773,7 @@ ul {
   position: absolute;
   top: 90px;
   right: 40px;
-  width: 200px;
+  width: min(200px, 32vw);
   opacity: 0.8;
   z-index: 0;
   pointer-events: none;
@@ -1718,8 +1796,8 @@ ul {
   top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 300px;
-  height: 300px;
+  width: min(300px, 88%);
+  height: min(300px, 88%);
   border-radius: 50%;
   background: var(--coral);
   z-index: 1;
@@ -1739,8 +1817,8 @@ ul {
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  width: 440px;
-  height: 220px;
+  width: min(440px, 90%);
+  aspect-ratio: 2 / 1;
   overflow: hidden;
   display: flex;
   align-items: flex-end;
@@ -1752,8 +1830,8 @@ ul {
   position: absolute;
   top: 0;
   left: 0;
-  width: 440px;
-  height: 440px;
+  width: 100%;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 -10px 30px -15px rgba(59, 42, 77, 0.3);
@@ -1768,7 +1846,7 @@ ul {
   position: absolute;
   top: 120px;
   right: 60px;
-  width: 150px;
+  width: min(150px, 24vw);
   opacity: 0.7;
   z-index: 0;
   pointer-events: none;
@@ -1777,7 +1855,7 @@ ul {
   position: absolute;
   left: 0;
   bottom: 40px;
-  width: 200px;
+  width: min(200px, 32vw);
   opacity: 0.5;
   z-index: 0;
   pointer-events: none;
@@ -1849,7 +1927,7 @@ ul {
 }
 .contact-banner-img {
   width: 100%;
-  aspect-ratio: 2076 / 950;
+  aspect-ratio: 2079 / 756;
   background: var(--pink-tint);
 }
 .contact-banner-img img {
@@ -1888,7 +1966,7 @@ ul {
 .pg-photo {
   border-radius: 24px;
   overflow: hidden;
-  min-height: 420px;
+  min-height: clamp(260px, 34vw, 420px);
   background: linear-gradient(160deg, var(--pink-soft), var(--coral-soft));
   display: flex;
   align-items: flex-end;
@@ -2104,41 +2182,80 @@ ul {
 }
 
 /* =========================================================
-   RESPONSIVE
+   HEADER / NAVIGATION — RESPONSIVE
+   The call button and "Book Appointment" button are never fully
+   hidden at any width — only their text labels collapse to
+   icon-only as space tightens. Nav LINKS move into the off-canvas
+   drawer once they no longer fit next to those buttons (~1250px),
+   well above the point where the buttons themselves need to shrink.
    ========================================================= */
-@media (max-width: 1100px) {
-  .team-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .process-steps {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-  }
-  .p-step.up {
-    margin-top: 0;
-  }
-  .p-arrow {
+@media (max-width: 1599px) {
+  /* Full header needs ~1600px unbroken — drop the "Call Us" label and
+     phone number here, keep just the tappable phone icon. */
+  .header-call .call-txt {
     display: none;
-  }
-  .why-body {
-    grid-template-columns: 1fr;
-  }
-  .why-center {
-    order: -1;
-    margin: 0 auto;
-  }
-  .why-col {
-    padding-top: 0;
   }
 }
-@media (max-width: 960px) {
-  .header-divider {
+@media (min-width: 1251px) and (max-width: 1300px) {
+  /* Even with the phone block down to just its icon, the full-text CTA
+     still doesn't fit alongside the nav links in this narrow band —
+     collapse it to icon-only too. The label stays in the DOM (aria-label
+     on the link covers the accessible name) so nothing is lost for
+     assistive tech. Scoped to stop at 1251px: below that, the nav links
+     are already in the off-canvas drawer (see next block) and there's
+     plenty of room again for the full-text button. */
+  .header-right > .header-cta {
+    padding: 8px;
+    gap: 0;
+  }
+  .header-right > .header-cta .btn-label {
     display: none;
   }
-  .nav-toggle {
-    display: grid;
-    place-items: center;
-    z-index: 160;
+}
+@media (max-width: 1250px) {
+  /* Below this, the 7 nav links alone are too wide to share a row with
+     anything else — no amount of shrinking the buttons fixes it (tested
+     down to 1100px with both already icon-only, still overflowed). The
+     hamburger + off-canvas drawer that used to live here has been
+     replaced by the app-style .mobile-bottom-nav (rendered by
+     MobileNav.js) below — .main-nav's own off-canvas CSS is left as-is
+     since nothing triggers it anymore (permanently translated
+     off-screen), and touching it risks the shared desktop .main-nav
+     rules for no benefit. */
+  .header-right > .header-cta {
+    display: none;
+  }
+  /* The header is now just the brand mark and the call button (nav
+     moved to .mobile-bottom-nav below), but both were still sized for
+     the full desktop row — fixed 46px logo, 20px wordmark, 52px call
+     circle, 18px padding — so the bar read as oversized on a phone.
+     Scaled fluidly with clamp() across this whole breakpoint, same
+     "everything shrinks together" principle as the bottom nav itself,
+     rather than one fixed mobile size. */
+  .site-header {
+    padding: clamp(10px, 2vw, 14px) 0;
+  }
+  .brand {
+    gap: clamp(6px, 2vw, 10px);
+  }
+  .brand-logo {
+    height: clamp(28px, 7vw, 38px);
+  }
+  .brand-word {
+    font-size: clamp(14px, 3.6vw, 18px);
+  }
+  /* Nudges the call button in from the header's own right edge so it
+     sits clearly inside the hero card's rounded corner instead of
+     crowding right up against it. */
+  .header-right {
+    padding-right: clamp(4px, 1.5vw, 8px);
+  }
+  .header-call .call-ico {
+    width: clamp(38px, 9vw, 48px);
+    height: clamp(38px, 9vw, 48px);
+  }
+  .header-divider {
+    display: none;
   }
   .main-nav {
     position: fixed;
@@ -2214,7 +2331,7 @@ ul {
   .mega-link .ml-body {
     gap: 14px;
   }
-  .mega-link .ml-text h5 {
+  .mega-link .ml-text .ml-title {
     color: rgba(255, 255, 255, 0.92);
   }
   .mega-link .ml-text p {
@@ -2244,20 +2361,314 @@ ul {
     justify-content: center;
     margin-top: 24px;
   }
+
+  /* =========================================================
+     MOBILE BOTTOM NAV (app-style, replaces the hamburger/drawer)
+     ========================================================= */
+  :root {
+    /* Single source for the bar's height so the page's bottom padding
+       and .to-top's clearance stay in lockstep with the bar itself. */
+    --mbn-h: clamp(62px, 16vw, 72px);
+  }
+  body {
+    padding-bottom: calc(var(--mbn-h) + 28px + env(safe-area-inset-bottom));
+  }
+  /* Floats above the new bar instead of sitting underneath it. */
+  .to-top {
+    bottom: calc(var(--mbn-h) + 20px + env(safe-area-inset-bottom));
+  }
+  .mobile-bottom-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    margin: 0 auto;
+    bottom: calc(14px + env(safe-area-inset-bottom));
+    z-index: 200;
+    max-width: 420px;
+    height: var(--mbn-h);
+    padding: 0 clamp(8px, 3vw, 18px);
+    /* Confirmed on a real device (dev AND production build): right after
+       a fresh load, the bar renders past the right edge for a moment,
+       then self-corrects on the first scroll. This is a known mobile
+       WebKit quirk — fixed-position elements can be laid out against
+       stale/unsettled viewport metrics until something forces the
+       browser to reconcile them, which a scroll does as a side effect.
+       Promoting the bar to its own compositing layer up front (rather
+       than implicitly getting one only once scrolling starts) makes the
+       browser resolve its real position/size immediately instead of
+       waiting for that first scroll. */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: clamp(22px, 7vw, 32px);
+    border: 1.5px solid var(--plum);
+    box-shadow: var(--shadow-card);
+  }
+  .mbn-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(2px, 1vw, 4px);
+    flex: 1;
+    padding: 6px 2px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--muted);
+    font-family: var(--font-display);
+    transition: color 0.25s, transform 0.2s;
+  }
+  .mbn-item svg {
+    width: clamp(23px, 6.5vw, 28px);
+    height: clamp(23px, 6.5vw, 28px);
+  }
+  .mbn-item span {
+    font-size: clamp(9px, 2.6vw, 11px);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  .mbn-item.active {
+    color: var(--coral);
+  }
+  .mbn-item:active {
+    transform: scale(0.92);
+  }
+  .mbn-fab {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: clamp(52px, 14vw, 60px);
+    height: clamp(52px, 14vw, 60px);
+    border-radius: 50%;
+    background: var(--coral);
+    color: #fff;
+    box-shadow: 0 12px 24px -8px rgba(232, 147, 133, 0.6);
+    transform: translateY(-38%);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .mbn-fab svg {
+    width: clamp(26px, 7.5vw, 32px);
+    height: clamp(26px, 7.5vw, 32px);
+  }
+  .mbn-fab:active {
+    transform: translateY(-38%) scale(0.92);
+  }
+  .mbn-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 198;
+    background: rgba(59, 42, 77, 0.35);
+    animation: mbnFade 0.25s ease;
+  }
+  .mbn-sheet {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--mbn-h) + 26px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    z-index: 199;
+    width: min(320px, calc(100% - 32px));
+    background: #fff;
+    border-radius: clamp(18px, 5vw, 24px);
+    box-shadow: var(--shadow-card);
+    padding: clamp(8px, 3vw, 14px);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    animation: mbnSlideUp 0.3s ease;
+  }
+  .mbn-sheet-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 4px 10px 8px;
+  }
+  .mbn-sheet-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: clamp(9px, 3vw, 12px) 10px;
+    border-radius: 14px;
+    color: var(--plum);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: clamp(13px, 3.5vw, 15px);
+    transition: background 0.2s;
+  }
+  .mbn-sheet-item:active {
+    background: var(--pink-tint);
+  }
+  .mbn-sheet-ico {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: clamp(32px, 8vw, 38px);
+    height: clamp(32px, 8vw, 38px);
+    border-radius: 50%;
+    background: var(--pink-tint);
+    color: var(--coral);
+  }
+  .mbn-sheet-ico svg {
+    width: clamp(16px, 4vw, 18px);
+    height: clamp(16px, 4vw, 18px);
+  }
+  @keyframes mbnFade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes mbnSlideUp {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  }
+}
+@media (max-width: 699px) {
+  /* Once the nav links are in the drawer, the header row is just
+     brand + phone + CTA + hamburger — plenty of room for the CTA to
+     keep its full "Book Appointment" text all the way down to here.
+     Below this it starts crowding the hamburger off-screen, so fall
+     back to icon-only (unrefined further for true mobile widths for
+     now — that range needs its own pass separately). */
+  .header-right > .header-cta {
+    padding: 8px;
+    gap: 0;
+  }
+  .header-right > .header-cta .btn-label {
+    display: none;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 1100px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  .p-step.up {
+    margin-top: 0;
+  }
+  .p-arrow {
+    display: none;
+  }
+  /* The desktop 3-column layout (pills flanking the portrait) collapses
+     here, but rather than a tall 4-pill stack, the two pill columns are
+     "unwrapped" via display:contents so their 4 children become direct
+     items of .why-body's own grid — landing as a compact 2x2 grid below
+     the portrait, with zero JSX changes. The portrait itself gets a real
+     mobile size cap (it previously had none, so it rendered near the
+     full section width) and the stats box below loses the large negative
+     margin that's only meant to overlap the doctor image on the wide
+     3-column desktop layout — left as-is on mobile, it was pulling the
+     stats box's opaque background up over 3 of the 4 pills, hiding them. */
+  .why-body {
+    grid-template-columns: 1fr 1fr;
+    row-gap: clamp(12px, 3vw, 20px);
+  }
+  .why-center {
+    grid-column: 1 / -1;
+    /* Comes AFTER the pills grid now (not before) specifically so nothing
+       sits between the doctor and the stats box below — the overlap this
+       section is built around (see .why-stats) needs the doctor to be the
+       very last thing in this grid's flow, exactly like on desktop where
+       the doctor column has nothing below it either. */
+    order: 1;
+    margin: 0 auto;
+    /* The doctor is sized independently of the stats grid's middle
+       column now — allowed to run wider than that column (and even
+       past the card's own edges, same as it already does vertically)
+       since the stat content and baby image next to it are shrunk down
+       small enough, and pushed far enough into the outer corners, to
+       stay clear regardless. */
+    max-width: clamp(180px, 54vw, 300px);
+  }
+  .why-col,
+  .why-col.right {
+    display: contents;
+  }
+  .why-pill,
+  .why-col.right .why-pill {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: clamp(6px, 1.5vw, 10px);
+    padding: clamp(12px, 2.5vw, 16px) clamp(8px, 2vw, 12px);
+  }
+  .why-pill .p-ico {
+    width: clamp(34px, 7vw, 44px);
+    height: clamp(34px, 7vw, 44px);
+  }
+  .why-pill span {
+    font-size: clamp(12px, 3vw, 14px);
+    line-height: 1.25;
+  }
+  /* Unlike the pills above, the stats grid below KEEPS its 3-column
+     shape (icon/number/caption in column 1, doctor's overlap column 2
+     left empty, baby image in column 3) instead of collapsing to a
+     single stack — column 2 staying empty all the way down is what lets
+     the doctor's negative margin below reach the real dome at the
+     bottom of the card without ever covering the side content. The
+     outer columns are pinned to a narrow range so they never grow wide
+     enough for the doctor's own middle column to be squeezed thin. */
+  .why-stats {
+    grid-template-columns: minmax(36px, 46px) 1fr minmax(36px, 46px);
+  }
+  .why-stat {
+    grid-column: 1;
+  }
+  .why-baby {
+    grid-column: 3;
+  }
+  /* Doctor's base needs to overlap deep enough to actually reach the
+     dome's peak at the bottom of the card, not just clear its own
+     row's height — computed from the doctor's own clamp() width formula
+     (same lockstep principle as before) so it scales with the doctor at
+     every width, just a much deeper ratio than a simple "don't hide the
+     text next to it" overlap would need. */
+  .why-stats {
+    margin-top: clamp(-190px, -42vw, -150px);
+  }
+  /* At 88% of the doctor's width (desktop's ratio), the coral circle
+     behind the portrait bulges out past the doctor's own silhouette —
+     harmless on the wide desktop row, but now that the doctor overlaps
+     deep enough to reach the dome, that bulge spills sideways into the
+     icon/caption and baby-image columns next to it. Narrowed so the
+     circle stays inside the doctor's own column instead of bleeding
+     into its neighbors. */
+  .why-doctor .doc-circle {
+    width: min(300px, 68%);
+    height: min(300px, 68%);
+  }
+}
+@media (max-width: 960px) {
   .about-grid,
   .faq-grid,
   .team-head,
   .pg-two-col,
   .contact-form .cf-row {
     grid-template-columns: 1fr;
-  }
-  .section {
-    padding: 70px 0;
-  }
-  .hero {
-    min-height: 640px;
-    margin: 14px;
-    border-radius: 28px;
   }
   .site-header {
     top: 14px;
@@ -2268,10 +2679,6 @@ ul {
     top: 0;
     left: 0;
     right: 0;
-  }
-  .hero-doctor-card {
-    position: static;
-    margin-top: 40px;
   }
   .footer-cols {
     grid-template-columns: 1fr 1fr;
@@ -2286,27 +2693,379 @@ ul {
   }
 }
 @media (max-width: 620px) {
-  .team-grid,
   .about-features,
   .footer-cols {
     grid-template-columns: 1fr;
   }
-  .about-gallery {
-    grid-template-columns: 1fr;
+  /* The 4 steps used to stack in one long column here (~650-700px of
+     scrolling before even counting the heading/note), reading like a
+     long web-page list rather than a compact app component. Converted
+     to a horizontal swipeable card row instead — same scroll-snap +
+     tap-to-advance pattern already used for .services-grid — so the
+     whole step sequence collapses to one card's height. */
+  .process-steps {
+    display: flex;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+    gap: 14px;
+    padding-bottom: 6px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+  .process-steps::-webkit-scrollbar {
+    display: none;
+  }
+  .process-edge-arrow {
+    display: grid;
+  }
+  /* Without this, the peeking next card's title/description sit crisp
+     and legible right where the floating arrow button lands on top of
+     them, reading as a layout bug rather than an intentional carousel
+     edge. Fading the track out into the section's own background color
+     before the button makes the overlap look deliberate. */
+  .process-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 80px;
+    background: linear-gradient(to right, transparent, var(--plum) 70%);
+    pointer-events: none;
+    z-index: 4;
+  }
+  .p-step {
+    flex: 0 0 auto;
+    /* Narrow enough that the next card always peeks in past the floating
+       arrow button — at 250px this card nearly filled the whole track at
+       360px, leaving no peek room, so the button landed on the current
+       card's own text instead of the intended next-card edge. */
+    width: min(210px, 62vw);
+    scroll-snap-align: center;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 24px 18px;
+  }
+  .p-step .p-circle {
+    width: 56px;
+    height: 56px;
+  }
+  .p-circle svg {
+    width: 26px;
+    height: 26px;
+  }
+  .p-step h4 {
+    font-size: 15px;
+  }
+  .p-step p {
+    font-size: 11px;
+    max-width: 170px;
+  }
+  /* Trimmed now that the steps block is a single short row instead of a
+     tall stack — the section reads as one tight unit end to end. */
+  .process-head {
+    margin-bottom: 20px;
+  }
+  .process-note {
+    margin-top: 20px;
+  }
+  /* Both g-tall (16:10) and g-img (1:1) are already sized off their own
+     width via aspect-ratio, so nothing here is stretched or fixed-height
+     — the gallery just used to fill the entire container edge to edge
+     (~327px at 375px wide), rendering each image far larger than a
+     compact mobile composition needs. Capping and centering the whole
+     gallery's width shrinks every image's height right along with it
+     (same aspect ratios, smaller unit), instead of only narrowing the
+     columns while heights stayed put. */
+  .about-gallery {
+    grid-template-columns: 1fr 1fr;
+    max-width: min(260px, 78vw);
+    margin: 0 auto;
+    gap: 8px;
+  }
+  /* Reuses the desktop grid structure (tall image left spanning both
+     rows via the base rule's grid-row:span 2, two images stacked right)
+     instead of the mobile-specific top+2-square arrangement — now that
+     the gallery is capped to ~260px wide, there's room to keep the same
+     composition. Relying on the desktop's height:100%/grid-row:span-2
+     to size g-tall doesn't work here — with no fixed min-height, that's
+     a circular "auto" row depending on a spanning child's 100% height,
+     which collapses to 0 in a fixed-width mobile grid (verified: the
+     whole gallery disappeared). Giving g-tall its own explicit
+     aspect-ratio instead sidesteps that entirely — sized purely from
+     its own column width, same as g-img, with the ratio picked so its
+     height (126px col × 16/9 ≈ 224px) closely matches the two stacked
+     g-img's combined height (126px col × 5/6 × 2 + gap ≈ 218px). */
+  /* aspect-ratio alone isn't enough here — with height:auto and no
+     other intrinsic size, these grid items (whose only content is an
+     absolutely-positioned fill image, contributing nothing to natural
+     sizing) collapse to 0 height in an auto-sized grid row: confirmed
+     by testing, the whole gallery vanished without a min-height floor.
+     A real min-height seeds the row so the grid can size it, then
+     aspect-ratio governs the actual final height once width resolves
+     (220/224px and 100/105px are close enough that aspect-ratio always
+     wins, min-height only prevents the collapse). */
+  .about-gallery .g-tall {
+    height: auto;
+    min-height: 220px;
+    aspect-ratio: 9 / 16;
+  }
+  .about-gallery .g-img {
+    min-height: 100px;
+    aspect-ratio: 6 / 5;
+  }
+  .about-badge {
+    /* Desktop already positions this on the seam between the tall left
+       image and the two stacked right images using percentage-based
+       left/top — that still lands in the right place at any container
+       size. Only the fixed 150px badge itself needs scaling down to
+       stay proportional to the much narrower mobile gallery. */
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  /* The "Discover More" semicircle (.why-cta) was still sized for a wide
+     desktop card (min(440px,90%) wide, ~2x that tall an overlap-clearing
+     shadow), forcing a huge padding-bottom on .why-stats just to keep
+     content from disappearing under it. Shrunk to a phone-appropriate
+     size here — still a clear dome with the (already-compact) button
+     inside, just proportioned for this card instead of desktop's. */
+  .why-cta {
+    width: min(170px, 55%);
+    padding-bottom: 16px;
+  }
+  /* The button's normal size (tuned for full-width desktop use elsewhere
+     on the site) is wider than this shrunk dome, so its pill edges poke
+     out past the curve. Scaled down specifically inside the dome so it
+     sits fully within it. */
+  .why-cta .why-discover {
+    font-size: 11px;
+    padding: 6px 6px 6px 14px;
+    gap: 6px;
+  }
+  .why-cta .why-discover .btn-ico {
+    width: 22px;
+    height: 22px;
+  }
+  .why-cta .why-discover .btn-ico svg {
+    width: 14px;
+    height: 14px;
+  }
+  /* padding-bottom mirrors .why-cta's own formula (55% wide, 2:1 ratio →
+     half that tall) plus a small gap, so the card reserves just enough
+     room for the dome and nothing more. The 3-column shape from the
+     ≤1100px rule above is kept (not collapsed to a single stack) so the
+     doctor's deep overlap has an empty middle column to fall through
+     all the way to the dome, with the icon/caption and baby image
+     narrowed down to fit the two outer columns at phone widths. */
   .why-stats {
-    grid-template-columns: 1fr;
     text-align: center;
-    padding: 40px 26px;
+    column-gap: clamp(6px, 2vw, 10px);
+    padding-bottom: min(100px, 32vw);
+  }
+  .why-baby {
+    justify-self: center;
+    width: min(34px, 9vw);
+  }
+  .why-stat h3 {
+    font-size: clamp(15px, 5vw, 60px);
+  }
+  .why-stat p {
+    font-size: clamp(8px, 2vw, 16px);
+    line-height: 1.25;
+  }
+  .why-stat .stat-ico svg {
+    width: 13px;
+    height: 13px;
   }
   .newsletter-form {
     min-width: 100%;
   }
-  .header-call .call-txt {
+  /* The decorative couple photo used to sit full-width below the heading
+     (~65vw, up to 340px tall) before the actual accordion even started —
+     the single biggest reason this section felt long. Turned into a
+     small avatar-style thumbnail sitting beside the heading instead of a
+     standalone block above the list, mirroring a compact "header row"
+     pattern instead of a stacked hero image. */
+  .faq-left {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    column-gap: 16px;
+  }
+  .faq-left .eyebrow {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .faq-left .section-title {
+    grid-column: 1;
+    grid-row: 2;
+    margin: 8px 0 0;
+    font-size: 26px;
+  }
+  .faq-photo {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    width: 84px;
+    margin-top: 0;
+  }
+  /* Tighten the accordion itself so closed rows read as a dense,
+     native-style list rather than loosely padded web cards. */
+  .faq-grid {
+    gap: 24px;
+  }
+  .faq-list {
+    gap: 8px;
+  }
+  .faq-q {
+    padding: 12px 16px;
+    font-size: 14px;
+    gap: 12px;
+  }
+  .faq-toggle {
+    width: 26px;
+    height: 26px;
+  }
+  .faq-toggle svg {
+    width: 14px;
+    height: 14px;
+  }
+  .faq-a-inner {
+    padding: 0 16px 14px;
+    font-size: 13px;
+  }
+  /* The 4 team cards used to stack in one long column here (~260-270px
+     each, plus a 26px gap) — well over 1000px of scrolling. Replaced
+     with a stacked/overlapping "coverflow" carousel instead: one member
+     front-and-center, the previous/next members peeking from behind on
+     either side, and pagination dots below — collapses the whole
+     section to roughly one card's height regardless of member count. */
+  .team-grid {
     display: none;
   }
-  .header-right > .header-cta {
-    display: none;
+  .team-coverflow {
+    display: block;
+  }
+  /* Card and stage share the same width formula (lockstep) so the stage
+     height always exactly matches the active card's own rendered
+     height, whatever the viewport width. */
+  .tc-stage {
+    position: relative;
+    width: min(190px, 58vw);
+    height: calc(min(190px, 58vw) * 4 / 3);
+    margin: 0 auto;
+  }
+  .tc-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(190px, 58vw);
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition: transform 0.45s ease, opacity 0.45s ease;
+  }
+  .tc-card .tc-photo {
+    width: 100%;
+    height: 100%;
+  }
+  .tc-active {
+    transform: translateX(-50%) scale(1);
+    z-index: 3;
+    opacity: 1;
+  }
+  .tc-prev {
+    transform: translateX(-112%) scale(0.82) translateY(6px);
+    z-index: 2;
+    opacity: 0.85;
+  }
+  .tc-next {
+    transform: translateX(12%) scale(0.82) translateY(6px);
+    z-index: 2;
+    opacity: 0.85;
+  }
+  .tc-hidden {
+    transform: translateX(-50%) scale(0.6);
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .tc-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 28px 14px 12px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.68));
+  }
+  .tc-caption h4 {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 2px;
+  }
+  .tc-caption span {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 11px;
+  }
+  .tc-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .tc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: var(--pink-tint);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: width 0.3s ease, background 0.3s ease;
+  }
+  .tc-dot.active {
+    width: 22px;
+    background: var(--coral);
+  }
+}
+@media (max-width: 699px) {
+  /* Below this, an absolutely-positioned overlay card next to wrapping
+     subtext gets too cramped — no combination of fluid sizing keeps
+     both readable without one colliding with the title or the other
+     (confirmed by testing the whole 480–630px range). More fundamentally,
+     forcing the background image to fill whatever height that overlaid
+     text stack needed was cropping it hard, since its box was never
+     shaped for the image at all. So instead: the image gets its own box
+     at its native ratio (a real, minimally-cropped landscape photo, same
+     idea as a banner image on a native app screen), and the title,
+     subtext and doctor card move to normal document flow below it —
+     against .hero's own solid background, no longer over the photo. */
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1880 / 968;
+  }
+  /* The image itself now clears the fixed header just by being taller
+     than it, so .hero-content no longer needs the old header-clearance
+     padding-top floor — it can be ordinary breathing room instead. */
+  .hero-content {
+    padding-top: clamp(20px, 5vw, 28px);
+    padding-bottom: clamp(16px, 4vw, 24px);
+  }
+  .hero-doctor-card {
+    position: static;
+    margin: 0 20px clamp(20px, 6vw, 40px);
+  }
+  .hero-sub {
+    position: static;
+    display: block;
+    margin-top: clamp(10px, 3vw, 20px);
+    padding: 0;
+    max-width: 100%;
   }
 }
 
@@ -2474,7 +3233,7 @@ ul {
   font-weight: 700;
 }
 .pj-card-title {
-  font-size: 22px;
+  font-size: clamp(18px, 1vw + 15px, 22px);
   font-weight: 600;
   color: var(--plum);
   margin: 8px 0;
@@ -2734,8 +3493,12 @@ ul {
   .pj-hero-copy {
     max-width: 100%;
   }
+  .pj-banner-hero-img {
+    aspect-ratio: 4 / 3;
+  }
   .pj-float-card {
-    display: none;
+    width: 100%;
+    margin: 20px 0 0;
   }
   .pj-stack {
     display: flex;
@@ -2792,6 +3555,10 @@ ul {
   .pj-float-card {
     animation: none !important;
   }
+  .mbn-sheet-backdrop,
+  .mbn-sheet {
+    animation: none !important;
+  }
 }
 
 /* =========================================================
@@ -2826,6 +3593,7 @@ ul {
 
 .blog-hero {
   background: linear-gradient(180deg, var(--pink-tint), #fff);
+  padding-top: 180px;
 }
 .blog-hero-inner {
   text-align: center;
@@ -2835,6 +3603,13 @@ ul {
 
 .blog-featured {
   margin-bottom: 60px;
+}
+.blog-featured-head {
+  margin-bottom: 24px;
+}
+.blog-featured-head .section-title {
+  font-size: clamp(24px, 3vw, 34px);
+  margin: 14px 0 0;
 }
 .blog-featured .blog-card {
   flex-direction: row;
@@ -2891,11 +3666,13 @@ ul {
 .blog-search input {
   border: none;
   background: none;
-  outline: none;
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--text);
   min-width: 180px;
+}
+.blog-search input:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .blog-grid {
@@ -3003,7 +3780,22 @@ ul {
   justify-content: center;
   flex-wrap: wrap;
 }
+.blog-cta .btn-outline {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.blog-cta .btn-outline .btn-ico {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+.blog-cta .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
 
+.article-section {
+  padding-top: 180px;
+}
 .article-container {
   max-width: 820px;
   margin: 0 auto;
@@ -3036,11 +3828,11 @@ ul {
   line-height: 1.8;
 }
 .article-prose h2 {
-  font-size: 28px;
+  font-size: clamp(22px, 2vw + 16px, 28px);
   margin: 48px 0 18px;
 }
 .article-prose h3 {
-  font-size: 21px;
+  font-size: clamp(18px, 1vw + 15px, 21px);
   color: var(--plum);
   margin: 32px 0 14px;
 }

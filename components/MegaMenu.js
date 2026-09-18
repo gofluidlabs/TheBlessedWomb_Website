@@ -27,7 +27,7 @@ export default function MegaMenu({ menu, open, variant, onLinkClick }) {
                     <Icon />
                   </span>
                   <span className="ml-text">
-                    <h5>{item.label}</h5>
+                    <span className="ml-title">{item.label}</span>
                     {item.desc && <p>{item.desc}</p>}
                   </span>
                 </span>

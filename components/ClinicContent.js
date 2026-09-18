@@ -12,6 +12,7 @@ export default function ClinicContent() {
             src={IMG.contactBanner}
             alt={`Map and directions to ${CLINIC.name} in ${CLINIC.streetAddress}`}
             className="pg-photo clinic-map-photo"
+            priority
           />
         </div>
 

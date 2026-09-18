@@ -1,3 +1,6 @@
+"use client";
+
+import { useRef, useState } from "react";
 import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
@@ -23,7 +26,38 @@ const MEMBERS = [
   { name: "Nursing Staff", role: "Antenatal Care", img: IMG.team4, dark: false },
 ];
 
+const WRAP = MEMBERS.length;
+
 export default function Team() {
+  const [active, setActive] = useState(0);
+  const touchStartX = useRef(null);
+
+  function handleTouchStart(e) {
+    touchStartX.current = e.touches[0].clientX;
+  }
+
+  function handleTouchEnd(e) {
+    if (touchStartX.current === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    const threshold = 40;
+    if (delta > threshold) {
+      setActive((i) => (i - 1 + WRAP) % WRAP);
+    } else if (delta < -threshold) {
+      setActive((i) => (i + 1) % WRAP);
+    }
+    touchStartX.current = null;
+  }
+
+  function slotClass(i) {
+    let diff = i - active;
+    if (diff > WRAP / 2) diff -= WRAP;
+    if (diff < -WRAP / 2) diff += WRAP;
+    if (diff === 0) return "tc-active";
+    if (diff === -1) return "tc-prev";
+    if (diff === 1) return "tc-next";
+    return "tc-hidden";
+  }
+
   return (
     <section className="section team" id="team">
       <img className="team-cross" src={IMG.crossDeco} alt="" aria-hidden="true" />
@@ -90,6 +124,50 @@ export default function Team() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="team-coverflow reveal" data-anim="up">
+          <div
+            className="tc-stage"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
+            {MEMBERS.map((m, i) => (
+              <div
+                key={m.name}
+                className={`tc-card ${slotClass(i)}`}
+                role="button"
+                tabIndex={0}
+                aria-label={`Show ${m.name}`}
+                onClick={() => setActive(i)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setActive(i);
+                  }
+                }}
+              >
+                <SmartImage src={m.img} alt={m.name} className="tc-photo" />
+                <div className="tc-caption">
+                  <h4>{m.name}</h4>
+                  <span>{m.role}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="tc-dots">
+            {MEMBERS.map((m, i) => (
+              <button
+                key={m.name}
+                type="button"
+                className={`tc-dot ${i === active ? "active" : ""}`}
+                aria-label={`Show ${m.name}`}
+                aria-current={i === active}
+                onClick={() => setActive(i)}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="team-foot reveal">

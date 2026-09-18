@@ -1,15 +1,18 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 
 /**
  * Lazy-loading image with a graceful brand-gradient fallback.
  * The gradient shows immediately; the photo fades in on load (GSAP-friendly),
- * and if the remote image fails it simply stays as the on-brand gradient.
+ * and if the image fails it simply stays as the on-brand gradient.
  *
- * Note: we also check `complete` on mount because a server-rendered <img>
- * can finish loading before React attaches the onLoad handler (common with
- * fast local assets) — without this the fade-in would never trigger.
+ * Wraps next/image in `fill` mode so it can drop into the existing
+ * position:relative `.smart-img` container (sized by CSS per call site)
+ * without every caller needing to know pixel dimensions, while still
+ * getting automatic AVIF/WebP negotiation, responsive srcset and
+ * built-in lazy loading.
  */
 export default function SmartImage({
   src,
@@ -18,16 +21,10 @@ export default function SmartImage({
   style,
   rounded,
   priority = false,
+  sizes = "100vw",
+  unoptimized = false,
 }) {
-  const ref = useRef(null);
   const [failed, setFailed] = useState(false);
-
-  useEffect(() => {
-    const img = ref.current;
-    if (img && img.complete && img.naturalWidth > 0) {
-      img.classList.add("loaded");
-    }
-  }, [src]);
 
   return (
     <div
@@ -35,15 +32,15 @@ export default function SmartImage({
       style={{ borderRadius: rounded, ...style }}
     >
       {!failed && (
-        <img
-          ref={ref}
+        <Image
           src={src}
           alt={alt}
-          loading={priority ? "eager" : "lazy"}
-          fetchPriority={priority ? "high" : "auto"}
-          decoding="async"
+          fill
+          sizes={sizes}
+          priority={priority}
+          quality={90}
+          unoptimized={unoptimized}
           onError={() => setFailed(true)}
-          onLoad={(e) => e.currentTarget.classList.add("loaded")}
         />
       )}
     </div>

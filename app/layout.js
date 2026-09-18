@@ -42,7 +42,7 @@ export const metadata = {
     description: DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
-    images: [{ url: "/website-assets/Process_banner.png" }],
+    images: [{ url: "/website-assets/Process_banner.jpg" }],
     locale: "en_IN",
     type: "website",
   },
@@ -50,7 +50,7 @@ export const metadata = {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
-    images: ["/website-assets/Process_banner.png"],
+    images: ["/website-assets/Process_banner.jpg"],
   },
 };
 

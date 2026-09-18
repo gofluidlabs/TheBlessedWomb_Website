@@ -1,10 +1,14 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Breadcrumbs from "@/components/Blog/Breadcrumbs";
-import { CLINIC, SITE_NAME } from "@/lib/seo";
+import { CLINIC, SITE_NAME, buildMetadata } from "@/lib/seo";
 
 export const metadata = {
-  title: "Terms & Conditions — The Blessed Womb",
+  ...buildMetadata({
+    path: "/terms",
+    title: "Terms & Conditions",
+    description: `Terms of use for the ${SITE_NAME} website.`,
+  }),
   // Kept out of the index until this has had an actual legal review —
   // see the notice at the top of the page itself.
   robots: { index: false, follow: true },

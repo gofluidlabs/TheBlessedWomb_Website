@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IMG } from "@/lib/images";
+import { CLINIC, DOCTOR } from "@/lib/seo";
 import MegaMenu from "./MegaMenu";
+import MobileNav from "./MobileNav";
 import {
   Phone,
-  Menu,
-  Close,
   ChevronDown,
   ArrowUpRight,
   HeartHands,
@@ -42,7 +42,7 @@ const MEGA_MENUS = {
       },
       {
         label: "About Dr. Jyoti Gupta",
-        desc: "20+ years, Obstetrician & Gynaecologist",
+        desc: `${DOCTOR.experience}, ${DOCTOR.jobTitle}`,
         icon: UserDoc,
         href: "/about#doctor",
         image: IMG.doc,
@@ -106,7 +106,6 @@ const MEGA_MENUS = {
 };
 
 export default function Header({ light = false }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState({});
   const [openMenu, setOpenMenu] = useState(null);
   const openTimer = useRef(null);
@@ -167,11 +166,11 @@ export default function Header({ light = false }) {
     clearTimeout(openTimer.current);
     clearTimeout(closeTimer.current);
     setOpenMenu(null);
-    setMobileOpen(false);
     setMobileAccordion({});
   }
 
   return (
+    <>
     <header className={`site-header ${light ? "light" : ""}`}>
       <div className="container header-inner">
         <Link href="/" className="brand" onClick={closeAll}>
@@ -179,7 +178,7 @@ export default function Header({ light = false }) {
           <span className="brand-word">The Blessed Womb</span>
         </Link>
 
-        <nav ref={navRef} className={`main-nav ${mobileOpen ? "open" : ""}`}>
+        <nav ref={navRef} className="main-nav">
           {NAV.map((item) => {
             if (item.type === "link") {
               const isActive =
@@ -240,37 +239,26 @@ export default function Header({ light = false }) {
         </nav>
 
         <div className="header-right">
-          <div className="header-call">
+          <a href={CLINIC.phoneHref} className="header-call">
             <span className="call-ico">
               <Phone />
             </span>
             <div className="call-txt">
               <span>Call Us</span>
-              <strong>+91 88826 63284</strong>
+              <strong>{CLINIC.phone}</strong>
             </div>
-          </div>
+          </a>
           <span className="header-divider" />
-          <Link href="/contact" className="btn header-cta">
-            Book Appointment
+          <Link href="/contact" className="btn header-cta" aria-label="Book Appointment">
+            <span className="btn-label">Book Appointment</span>
             <span className="btn-ico">
               <ArrowUpRight />
             </span>
           </Link>
-          <button
-            className="nav-toggle"
-            aria-label={mobileOpen ? "Close menu" : "Menu"}
-            onClick={() => setMobileOpen((v) => !v)}
-          >
-            {mobileOpen ? <Close /> : <Menu />}
-          </button>
         </div>
       </div>
-
-      <div
-        className={`mnav-backdrop ${mobileOpen ? "open" : ""}`}
-        onClick={closeAll}
-        aria-hidden="true"
-      />
     </header>
+    <MobileNav />
+    </>
   );
 }
