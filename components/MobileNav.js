@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { trackEvent } from "@/lib/analytics";
 import {
   Home,
   MedKit,
@@ -54,6 +55,13 @@ export default function MobileNav() {
     setOpenSheet((v) => (v === key ? null : key));
   }
 
+  function trackNav(item) {
+    trackEvent("navigation_click", {
+      navigation_item: item.toLowerCase(),
+      navigation_location: "mobile",
+    });
+  }
+
   const isHome = pathname === "/";
   const isAbout = pathname === "/about";
   const isCare =
@@ -86,7 +94,10 @@ export default function MobileNav() {
                 key={item.label}
                 href={item.href}
                 className="mbn-sheet-item"
-                onClick={() => setOpenSheet(null)}
+                onClick={() => {
+                  setOpenSheet(null);
+                  trackNav(item.label);
+                }}
               >
                 <span className="mbn-sheet-ico">
                   <Icon />
@@ -102,7 +113,10 @@ export default function MobileNav() {
         <Link
           href="/"
           className={`mbn-item ${isHome ? "active" : ""}`}
-          onClick={() => setOpenSheet(null)}
+          onClick={() => {
+            setOpenSheet(null);
+            trackNav("home");
+          }}
         >
           <Home />
           <span>Home</span>
@@ -113,13 +127,22 @@ export default function MobileNav() {
           className={`mbn-item ${isCare || openSheet === "care" ? "active" : ""}`}
           aria-expanded={openSheet === "care"}
           aria-haspopup="dialog"
-          onClick={() => toggleSheet("care")}
+          onClick={() => {
+            toggleSheet("care");
+            trackNav("care");
+          }}
         >
           <MedKit />
           <span>Care</span>
         </button>
 
-        <Link href="/contact" className="mbn-fab" aria-label="Book Appointment">
+        <Link
+          href="/contact"
+          className="mbn-fab"
+          aria-label="Book Appointment"
+          data-track="appointment_click"
+          data-track-location="mobile_navigation"
+        >
           <ArrowUpRight />
         </Link>
 
@@ -128,7 +151,10 @@ export default function MobileNav() {
           className={`mbn-item ${isAbout || openSheet === "about" ? "active" : ""}`}
           aria-expanded={openSheet === "about"}
           aria-haspopup="dialog"
-          onClick={() => toggleSheet("about")}
+          onClick={() => {
+            toggleSheet("about");
+            trackNav("about");
+          }}
         >
           <UserDoc />
           <span>About</span>
@@ -137,7 +163,10 @@ export default function MobileNav() {
         <Link
           href="/contact"
           className={`mbn-item ${isContact ? "active" : ""}`}
-          onClick={() => setOpenSheet(null)}
+          onClick={() => {
+            setOpenSheet(null);
+            trackNav("contact");
+          }}
         >
           <Phone />
           <span>Contact</span>

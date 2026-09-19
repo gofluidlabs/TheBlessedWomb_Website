@@ -20,13 +20,23 @@ export default function ProcessCta() {
         </p>
 
         <div className="pj-final-actions reveal" data-anim="up" data-delay="0.15">
-          <Link href="/contact" className="btn">
+          <Link
+            href="/contact"
+            className="btn"
+            data-track="appointment_click"
+            data-track-location="other"
+          >
             Book a Consultation
             <span className="btn-ico">
               <ArrowUpRight />
             </span>
           </Link>
-          <Link href="/contact" className="btn btn-outline">
+          <Link
+            href="/contact"
+            className="btn btn-outline"
+            data-track="appointment_click"
+            data-track-location="other"
+          >
             Contact The Blessed Womb
             <span className="btn-ico">
               <ArrowUpRight />

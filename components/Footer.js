@@ -43,7 +43,12 @@ export default function Footer() {
           <h3>Comprehensive antenatal care, connect with us now</h3>
         </div>
         <div className="cta-right">
-          <Link href="/contact" className="btn">
+          <Link
+            href="/contact"
+            className="btn"
+            data-track="appointment_click"
+            data-track-location="footer"
+          >
             Appointment
             <span className="btn-ico">
               <ArrowUpRight />

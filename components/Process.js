@@ -76,7 +76,14 @@ export default function Process() {
 
         <p className="process-note reveal">
           Let&rsquo;s take these simple steps together. Contact us to begin
-          your care journey. <Link href="/contact">Book an Appointment</Link>
+          your care journey.{" "}
+          <Link
+            href="/contact"
+            data-track="appointment_click"
+            data-track-location="other"
+          >
+            Book an Appointment
+          </Link>
         </p>
       </div>
     </section>

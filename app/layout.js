@@ -1,6 +1,9 @@
+import { Suspense } from "react";
+import { GoogleTagManager } from "@next/third-parties/google";
 import { Fredoka, Mulish } from "next/font/google";
 import WelcomeModal from "@/components/WelcomeModal";
 import JsonLd from "@/components/JsonLd";
+import Analytics from "@/components/Analytics";
 import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import { organizationGraph } from "@/lib/schema";
 import "./globals.css";
@@ -63,6 +66,27 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${fredoka.variable} ${mulish.variable}`}>
       <body>
+        {process.env.NEXT_PUBLIC_GTM_ID && (
+          <>
+            <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+            {/* @next/third-parties only injects the <script> loader — the
+                <noscript> fallback (for users with JS disabled) is not
+                automatic and has to be placed right after <body> by hand,
+                per Next.js's own GTM documentation. */}
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${process.env.NEXT_PUBLIC_GTM_ID}`}
+                height="0"
+                width="0"
+                style={{ display: "none", visibility: "hidden" }}
+                title="Google Tag Manager"
+              />
+            </noscript>
+          </>
+        )}
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
         <JsonLd data={organizationGraph()} />
         {children}
         <WelcomeModal />

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { IMG } from "@/lib/images";
 import { CLINIC, DOCTOR } from "@/lib/seo";
+import { trackEvent } from "@/lib/analytics";
 import MegaMenu from "./MegaMenu";
 import MobileNav from "./MobileNav";
 import {
@@ -168,6 +169,12 @@ export default function Header({ light = false }) {
     setOpenMenu(null);
     setMobileAccordion({});
   }
+  function trackNav(item) {
+    trackEvent("navigation_click", {
+      navigation_item: item.toLowerCase(),
+      navigation_location: "desktop",
+    });
+  }
 
   return (
     <>
@@ -189,7 +196,10 @@ export default function Header({ light = false }) {
                   key={item.label}
                   href={item.href}
                   className={isActive ? "active" : ""}
-                  onClick={closeAll}
+                  onClick={() => {
+                    closeAll();
+                    trackNav(item.label);
+                  }}
                 >
                   {item.label.toUpperCase()}
                 </Link>
@@ -211,7 +221,10 @@ export default function Header({ light = false }) {
                   type="button"
                   className={`mega-trigger ${isActive ? "active" : ""}`}
                   aria-expanded={isOpen}
-                  onClick={() => toggleMenu(item.key)}
+                  onClick={() => {
+                    toggleMenu(item.key);
+                    trackNav(item.label);
+                  }}
                 >
                   {item.label.toUpperCase()}
                   <ChevronDown className="mega-chevron" />
@@ -230,6 +243,8 @@ export default function Header({ light = false }) {
             href="/contact"
             className="btn header-cta mnav-footer-cta"
             onClick={closeAll}
+            data-track="appointment_click"
+            data-track-location="header"
           >
             Book Appointment
             <span className="btn-ico">
@@ -249,7 +264,13 @@ export default function Header({ light = false }) {
             </div>
           </a>
           <span className="header-divider" />
-          <Link href="/contact" className="btn header-cta" aria-label="Book Appointment">
+          <Link
+            href="/contact"
+            className="btn header-cta"
+            aria-label="Book Appointment"
+            data-track="appointment_click"
+            data-track-location="header"
+          >
             <span className="btn-label">Book Appointment</span>
             <span className="btn-ico">
               <ArrowUpRight />

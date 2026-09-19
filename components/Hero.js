@@ -35,7 +35,12 @@ export default function Hero() {
         <div>
           <p className="doc-name">Dr. Jyoti Gupta</p>
           <p>Obstetrician &amp; Gynaecologist</p>
-          <Link href="/contact" className="book">
+          <Link
+            href="/contact"
+            className="book"
+            data-track="appointment_click"
+            data-track-location="hero"
+          >
             Book Now <ArrowRight />
           </Link>
         </div>

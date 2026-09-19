@@ -16,13 +16,23 @@ export default function BlogCTA() {
           self-diagnosis.
         </p>
         <div className="blog-cta-actions">
-          <Link href="/contact" className="btn">
+          <Link
+            href="/contact"
+            className="btn"
+            data-track="appointment_click"
+            data-track-location="other"
+          >
             Book a Consultation
             <span className="btn-ico">
               <ArrowUpRight />
             </span>
           </Link>
-          <Link href="/contact" className="btn btn-outline">
+          <Link
+            href="/contact"
+            className="btn btn-outline"
+            data-track="appointment_click"
+            data-track-location="other"
+          >
             Contact The Blessed Womb
             <span className="btn-ico">
               <ArrowUpRight />

@@ -76,10 +76,16 @@ export default function PrivacyPolicyPage() {
 
               <h2>Cookies and Tracking</h2>
               <p>
-                This website does not currently use cookies, analytics, or
-                any third-party tracking or advertising scripts. If that
-                changes in the future, this policy will be updated
-                accordingly before any such tool is introduced.
+                This website uses Google Tag Manager and Google Analytics
+                to understand, in aggregate, how visitors use the site —
+                for example, which pages are viewed and which buttons or
+                links are clicked. This analysis relies on anonymous,
+                non-identifying technical and behavioural data only. We do
+                not use this system to collect or store your name, phone
+                number, email address, medical information, or any content
+                you enter into a form. You can control or block this data
+                collection using your browser&rsquo;s cookie settings or a
+                browser extension such as Google Analytics Opt-out.
               </p>
 
               <h2>Sharing Your Information</h2>
