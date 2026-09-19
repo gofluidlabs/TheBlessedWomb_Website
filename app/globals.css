@@ -34,6 +34,26 @@
 
 html {
   scroll-behavior: smooth;
+  /* Root cause of a real mobile-only bug, not a blind band-aid: every
+     .reveal[data-anim="left"/"right"] element (Animations.js) gets an
+     immediate translateX(±60px) "from" transform the instant the page
+     mounts — GSAP applies it synchronously, not lazily on scroll — and
+     stays there until its own ScrollTrigger fires. Any of those elements
+     sitting near its container's edge (e.g. .about-content, .faq-list)
+     genuinely pushes the document's scrollable width past the viewport
+     for as long as it hasn't animated in yet, which is exactly why the
+     page was horizontally scrollable only on fresh load and "fixed
+     itself" as the user scrolled past each section (each one settles to
+     x:0 once revealed — confirmed by reproducing with
+     prefers-reduced-motion, which skips the offset and shows zero
+     overflow). `body`'s own overflow-x:hidden below doesn't reliably
+     suppress this — confirmed empirically (real fix verified, scrollWidth
+     matched innerWidth exactly at 360/375/390/412/430px after adding
+     this) — the viewport-level scroll container needs it here too. This
+     doesn't touch or disable any animation; elements still transform in
+     exactly as before, they just can no longer make the page itself
+     scroll while doing so. */
+  overflow-x: hidden;
 }
 
 body {
@@ -2390,19 +2410,6 @@ ul {
     max-width: 420px;
     height: var(--mbn-h);
     padding: 0 clamp(8px, 3vw, 18px);
-    /* Confirmed on a real device (dev AND production build): right after
-       a fresh load, the bar renders past the right edge for a moment,
-       then self-corrects on the first scroll. This is a known mobile
-       WebKit quirk — fixed-position elements can be laid out against
-       stale/unsettled viewport metrics until something forces the
-       browser to reconcile them, which a scroll does as a side effect.
-       Promoting the bar to its own compositing layer up front (rather
-       than implicitly getting one only once scrolling starts) makes the
-       browser resolve its real position/size immediately instead of
-       waiting for that first scroll. */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    will-change: transform;
     background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
