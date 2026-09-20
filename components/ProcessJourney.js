@@ -10,6 +10,7 @@ import {
   Stethoscope,
 } from "./Icons";
 import ProcessJourneyRow from "./ProcessJourneyRow";
+import ProcessJourneyLineMobile from "./ProcessJourneyLineMobile";
 import { IMG } from "@/lib/images";
 
 const PHASES = [
@@ -203,7 +204,7 @@ export default function ProcessJourney() {
         </div>
 
         <div className="pj-stack">
-          <div className="pj-line-mobile" aria-hidden="true" />
+          <ProcessJourneyLineMobile />
           {PHASES.map((phase) => (
             <ProcessJourneyRow key={phase.number} phase={phase} />
           ))}

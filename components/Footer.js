@@ -178,6 +178,9 @@ export default function Footer() {
               <Link href="/terms">Terms &amp; Condition</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>
               <Link href="/contact">Contact</Link>
+              <a href="https://gofluid.in" target="_blank" rel="noopener noreferrer">
+                Designed By GoFluid - Connect with us
+              </a>
             </div>
           </div>
         </div>

@@ -19,6 +19,8 @@ export default function Animations() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
+    let marqueeCleanup = null;
+
     const ctx = gsap.context(() => {
       // ---- Scroll reveals ----
       gsap.utils.toArray(".reveal").forEach((el) => {
@@ -83,12 +85,37 @@ export default function Animations() {
       });
 
       // ---- Marquee ----
+      // Seamless infinite scroll: translate each track by the true distance
+      // between two corresponding duplicated .marquee-item children (not
+      // scrollWidth/2, which is thrown off by flex `gap` only applying
+      // *between* items), and rebuild the measurement once webfonts have
+      // swapped in and on resize, since the marquee text is viewport-width
+      // relative (clamp()) and would otherwise drift out of sync with a
+      // distance baked in at first paint.
       if (!reduceMotion) {
-        gsap.utils.toArray(".marquee-track").forEach((track) => {
+        const marqueeTweens = new Map();
+        const tracks = gsap.utils.toArray(".marquee-track");
+
+        function measurePeriod(track) {
+          const items = track.querySelectorAll(":scope > .marquee-item");
+          if (items.length < 2) return track.scrollWidth / 2;
+          const mid = Math.floor(items.length / 2);
+          return (
+            items[mid].getBoundingClientRect().left -
+            items[0].getBoundingClientRect().left
+          );
+        }
+
+        function buildMarquee(track) {
+          const existing = marqueeTweens.get(track);
+          if (existing) existing.kill();
+
           const dir = track.dataset.dir === "right" ? 1 : -1;
-          const half = track.scrollWidth / 2;
-          gsap.to(track, {
-            x: dir * -half,
+          const half = measurePeriod(track);
+          if (!half) return;
+
+          const tween = gsap.to(track, {
+            x: dir * half,
             duration: 24,
             ease: "none",
             repeat: -1,
@@ -96,7 +123,36 @@ export default function Animations() {
               x: gsap.utils.unitize((x) => parseFloat(x) % half),
             },
           });
-        });
+          marqueeTweens.set(track, tween);
+        }
+
+        const buildAll = () => tracks.forEach(buildMarquee);
+
+        if (document.fonts && document.fonts.ready) {
+          let built = false;
+          const runOnce = () => {
+            if (built) return;
+            built = true;
+            buildAll();
+          };
+          document.fonts.ready.then(runOnce);
+          setTimeout(runOnce, 300);
+        } else {
+          buildAll();
+        }
+
+        let marqueeResizeTimer;
+        const onMarqueeResize = () => {
+          clearTimeout(marqueeResizeTimer);
+          marqueeResizeTimer = setTimeout(buildAll, 150);
+        };
+        window.addEventListener("resize", onMarqueeResize);
+
+        marqueeCleanup = () => {
+          clearTimeout(marqueeResizeTimer);
+          window.removeEventListener("resize", onMarqueeResize);
+          marqueeTweens.forEach((tween) => tween.kill());
+        };
       }
     });
 
@@ -117,6 +173,7 @@ export default function Animations() {
     return () => {
       window.removeEventListener("scroll", onScroll);
       clearTimeout(refresh);
+      if (marqueeCleanup) marqueeCleanup();
       ctx.revert();
     };
   }, []);
