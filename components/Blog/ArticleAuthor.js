@@ -6,7 +6,7 @@ export default function ArticleAuthor() {
   return (
     <div className="article-author-box">
       <span className="article-author-photo">
-        <SmartImage src={IMG.doc} alt={DOCTOR.name} sizes="64px" />
+        <SmartImage src={IMG.doc} alt={`${DOCTOR.name}, ${DOCTOR.jobTitle}`} sizes="64px" />
       </span>
       <div>
         <span className="article-author-label">Written &amp; medically overseen by</span>

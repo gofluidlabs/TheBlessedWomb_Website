@@ -46,7 +46,7 @@ export default function AboutWhy() {
                   <Icon />
                 </span>
                 <div>
-                  <h4>{r.title}</h4>
+                  <h3>{r.title}</h3>
                   <p>{r.desc}</p>
                 </div>
               </div>

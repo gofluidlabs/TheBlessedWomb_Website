@@ -53,7 +53,7 @@ export default function WhyChooseUs() {
               <span className="doc-circle" />
               <img
                 src={IMG.whyDoctor}
-                alt="Dr. Jyoti Gupta"
+                alt="Dr. Jyoti Gupta, Obstetrician & Gynaecologist at The Blessed Womb, Greater Noida"
                 className="doc-portrait"
               />
             </div>

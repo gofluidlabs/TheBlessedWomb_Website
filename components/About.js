@@ -69,7 +69,7 @@ export default function About() {
                 <HeartHands />
               </span>
               <div>
-                <h4>Patient Focused</h4>
+                <h3>Patient Focused</h3>
                 <p>A warm, welcoming environment for every mother.</p>
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function About() {
                 <Microscope />
               </span>
               <div>
-                <h4>Comprehensive Diagnostics</h4>
+                <h3>Comprehensive Diagnostics</h3>
                 <p>Pregnancy and gynaecological ultrasound under one roof.</p>
               </div>
             </div>

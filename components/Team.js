@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
-import { SOCIAL } from "@/lib/seo";
+import { socialUrl, realSocials } from "@/lib/seo";
 import {
   Plus,
   Phone,
@@ -25,6 +25,13 @@ const MEMBERS = [
   },
   { name: "Nursing Staff", role: "Antenatal Care", img: IMG.team4, dark: false },
 ];
+
+// Same placeholder guard as the footer — see lib/seo.js socialUrl().
+const TEAM_SOCIALS = realSocials([
+  { key: "facebook", label: "Facebook", icon: Facebook },
+  { key: "twitter", label: "Twitter", icon: Twitter },
+  { key: "instagram", label: "Instagram", icon: Instagram },
+]);
 
 const WRAP = MEMBERS.length;
 
@@ -87,30 +94,17 @@ export default function Team() {
             >
               {m.dark ? (
                 <div className="team-social">
-                  <a
-                    href={SOCIAL.facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Facebook"
-                  >
-                    <Facebook />
-                  </a>
-                  <a
-                    href={SOCIAL.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Twitter"
-                  >
-                    <Twitter />
-                  </a>
-                  <a
-                    href={SOCIAL.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Instagram"
-                  >
-                    <Instagram />
-                  </a>
+                  {TEAM_SOCIALS.map(({ key, label, icon: Icon }) => (
+                    <a
+                      key={key}
+                      href={socialUrl(key)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`The Blessed Womb on ${label}`}
+                    >
+                      <Icon />
+                    </a>
+                  ))}
                 </div>
               ) : (
                 <span className="team-plus">
@@ -173,7 +167,7 @@ export default function Team() {
         <div className="team-foot reveal">
           <div className="tf-avatars">
             <span className="av">
-              <SmartImage src={IMG.doc} alt="Dr. Jyoti Gupta" />
+              <SmartImage src={IMG.doc} alt="Dr. Jyoti Gupta, Obstetrician & Gynaecologist, The Blessed Womb" />
             </span>
             <span className="av call">
               <Phone width={18} height={18} />

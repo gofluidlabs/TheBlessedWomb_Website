@@ -3,7 +3,7 @@
 import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
-import { CLINIC, SOCIAL } from "@/lib/seo";
+import { CLINIC, socialUrl, realSocials } from "@/lib/seo";
 import {
   ArrowUpRight,
   Location,
@@ -14,6 +14,16 @@ import {
   Youtube,
   LinkedIn,
 } from "./Icons";
+
+// Rendered from a list rather than hand-written, so a profile that hasn't
+// been supplied yet is simply absent instead of shipping a live link to
+// twitter.com/PLACEHOLDER_UPDATE_ME.
+const SOCIAL_LINKS = realSocials([
+  { key: "twitter", label: "Twitter", icon: Twitter },
+  { key: "facebook", label: "Facebook", icon: Facebook },
+  { key: "youtube", label: "YouTube", icon: Youtube },
+  { key: "linkedin", label: "LinkedIn", icon: LinkedIn },
+]);
 
 const QUICK = [
   { label: "About", href: "/about" },
@@ -123,38 +133,17 @@ export default function Footer() {
               The Blessed Womb
             </span>
             <div className="footer-social">
-              <a
-                href={SOCIAL.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter"
-              >
-                <Twitter />
-              </a>
-              <a
-                href={SOCIAL.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-              >
-                <Facebook />
-              </a>
-              <a
-                href={SOCIAL.youtube}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
-              >
-                <Youtube />
-              </a>
-              <a
-                href={SOCIAL.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-              >
-                <LinkedIn />
-              </a>
+              {SOCIAL_LINKS.map(({ key, label, icon: Icon }) => (
+                <a
+                  key={key}
+                  href={socialUrl(key)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${CLINIC.name} on ${label}`}
+                >
+                  <Icon />
+                </a>
+              ))}
             </div>
             <h5>
               Subscribe to Our

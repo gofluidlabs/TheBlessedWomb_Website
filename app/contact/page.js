@@ -5,17 +5,20 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, keywordSet } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
-const TITLE = "Contact & Book an Appointment";
+// Booking-intent page: the title carries the action plus the locality so it
+// can pick up "book gynaecologist appointment Greater Noida" style queries.
+const TITLE = "Book Appointment — Gynaecologist in Greater Noida";
 const DESCRIPTION =
-  "Get in touch with The Blessed Womb, Dr. Jyoti Maternity, Infertility & Ultrasound Centre in Block D, Alpha I, Greater Noida. Call +91 88826 63284 or book a consultation.";
+  "Book an appointment with Dr. Jyoti Gupta at The Blessed Womb, Alpha 1, Greater Noida. Call +91 88826 63284 or send an enquiry for gynae and pregnancy care.";
 
 export const metadata = buildMetadata({
   path: "/contact",
   title: TITLE,
   description: DESCRIPTION,
+  keywords: keywordSet("core", "local", "brand"),
 });
 
 export default function ContactPage() {

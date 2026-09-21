@@ -52,7 +52,7 @@ export default function Process() {
                   <div className="p-circle">
                     <Icon width={54} height={54} />
                   </div>
-                  <h4>{s.title}</h4>
+                  <h3>{s.title}</h3>
                   <p>Our patient assessment process is designed to evaluate.</p>
                   {i < STEPS.length - 1 && (
                     <span className="p-arrow">

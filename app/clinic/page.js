@@ -6,17 +6,21 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, keywordSet, sup } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
-const TITLE = "Clinic & Location — Alpha I, Greater Noida";
+// The "near me" / directions page. It targets the locality terms rather
+// than the doctor's name, because that is what people search once they
+// already intend to visit.
+const TITLE = `${sup("Best Gynae", "Gynae")} & Obs Clinic in Alpha 1, Greater Noida`;
 const DESCRIPTION =
-  "Find The Blessed Womb in Block D, Alpha I, Greater Noida, Uttar Pradesh — near St. Joseph School. Address, phone, directions and how to reach us from Alpha 1 Main Market.";
+  "Visit The Blessed Womb gynae & obs clinic at Block D, Alpha 1, Greater Noida — behind St. Joseph School. Address, directions and phone +91 88826 63284.";
 
 export const metadata = buildMetadata({
   path: "/clinic",
   title: TITLE,
   description: DESCRIPTION,
+  keywords: keywordSet("local", "core", "brand"),
 });
 
 export default function ClinicPage() {

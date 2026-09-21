@@ -75,7 +75,7 @@ export default function Services() {
                   <h3>{s.title}</h3>
                   <div className="svc-img">
                     <div className="svc-img-inner">
-                      <SmartImage src={s.img} alt={s.title} />
+                      <SmartImage src={s.img} alt={`${s.title} at The Blessed Womb, Greater Noida`} />
                     </div>
                     <span className="svc-badge">
                       <Icon />

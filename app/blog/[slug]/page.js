@@ -11,7 +11,7 @@ import ArticleAuthor from "@/components/Blog/ArticleAuthor";
 import ArticleFAQ from "@/components/Blog/ArticleFAQ";
 import RelatedArticles from "@/components/Blog/RelatedArticles";
 import BlogCTA from "@/components/Blog/BlogCTA";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, keywordSet } from "@/lib/seo";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog";
 
@@ -27,7 +27,14 @@ export async function generateMetadata({ params }) {
     path: `/blog/${post.slug}`,
     title: post.seoTitle,
     description: post.seoDescription,
-    ogImage: post.featuredImage,
+    // No `ogImage` here on purpose: opengraph-image.js in this folder
+    // builds a branded 1200x630 card from the post's featured photo.
+    // Setting `ogImage` would override it and hand social platforms the
+    // raw source file instead — see the note in that file.
+    // Each article carries its own `keywords` in frontmatter; the brand
+    // terms are appended so every article also reinforces the entity.
+    keywords: [...post.keywords, ...keywordSet("brand")],
+    type: "article",
   });
 }
 

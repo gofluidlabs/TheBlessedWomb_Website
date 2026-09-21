@@ -671,6 +671,19 @@ ul {
   line-height: 0.98;
   letter-spacing: -2px;
 }
+/* Second line of the <h1>: deliberately much smaller and lighter than the
+   slogan above it, so it reads as a descriptor rather than competing with
+   the brand line, while still being real visible text inside the heading. */
+.hero-title-sub {
+  display: block;
+  margin-top: clamp(8px, 1.1vw, 18px);
+  font-family: var(--font-body);
+  font-size: clamp(12px, 1.15vw + 6px, 24px);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.9);
+}
 .hero-sub {
   position: absolute;
   bottom: clamp(10px, 3.65vw, 70px);
@@ -875,6 +888,7 @@ ul {
   background: var(--pink-soft);
   color: var(--coral);
 }
+.feature h3,
 .feature h4 {
   font-size: clamp(15px, 2.08vw, 20px);
   margin-bottom: 2px;
@@ -1292,6 +1306,7 @@ ul {
   background: var(--coral);
   border-color: var(--coral);
 }
+.p-step h3,
 .p-step h4 {
   color: #fff;
   font-size: clamp(16px, 2.4vw, 23px);
@@ -1393,10 +1408,24 @@ ul {
   background: #fff;
   color: var(--plum);
 }
+/* Answer reveal, sized by its own content.
+   This used to be a hard `max-height: 240px` set inline from Faq.js, which
+   silently clipped any answer that ran longer than the number — a trap
+   every time the FAQ copy is edited. Animating grid-template-rows from
+   0fr to 1fr gets the same transition with no magic number, so answers can
+   now be any length. Browsers that don't interpolate 0fr/1fr simply snap
+   open instead of easing; nothing is ever cut off. */
 .faq-a {
-  max-height: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s ease;
+}
+.faq-item.open .faq-a {
+  grid-template-rows: 1fr;
+}
+.faq-a-clip {
+  min-height: 0;
   overflow: hidden;
-  transition: max-height 0.4s ease;
 }
 .faq-a-inner {
   padding: 0 clamp(16px, 2.71vw, 26px) clamp(14px, 2.5vw, 24px);
@@ -2841,6 +2870,7 @@ ul {
     width: 26px;
     height: 26px;
   }
+  .p-step h3,
   .p-step h4 {
     font-size: 15px;
   }

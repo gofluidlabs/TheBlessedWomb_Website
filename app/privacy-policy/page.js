@@ -7,7 +7,7 @@ export const metadata = {
   ...buildMetadata({
     path: "/privacy-policy",
     title: "Privacy Policy",
-    description: `How ${SITE_NAME} collects and uses information submitted through this website.`,
+    description: `How ${SITE_NAME} (${CLINIC.legalName}), Greater Noida, collects and uses information submitted through this website.`,
   }),
   // Kept out of the index until this has had an actual legal review —
   // see the notice at the top of the page itself.

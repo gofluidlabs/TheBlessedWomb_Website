@@ -8,18 +8,19 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, keywordSet } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 import { getAllPosts, getFeaturedPost, CATEGORIES } from "@/lib/blog";
 
-const TITLE = "Women's Health, Pregnancy & Fertility Resources";
+const TITLE = "Pregnancy, Fertility & Women's Health Guides";
 const DESCRIPTION =
-  "Evidence-informed articles on pregnancy, gynaecology, fertility and women's health from The Blessed Womb, Greater Noida — written and medically overseen by Dr. Jyoti Gupta.";
+  "Evidence-informed articles on pregnancy, gynaecology, fertility and women's health, written and medically reviewed by Dr. Jyoti Gupta, Greater Noida.";
 
 export const metadata = buildMetadata({
   path: "/blog",
   title: TITLE,
   description: DESCRIPTION,
+  keywords: keywordSet("maternity", "fertility", "brand"),
 });
 
 // Keep only the fields the client-side filter component actually needs —

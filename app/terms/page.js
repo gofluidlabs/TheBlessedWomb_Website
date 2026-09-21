@@ -7,7 +7,7 @@ export const metadata = {
   ...buildMetadata({
     path: "/terms",
     title: "Terms & Conditions",
-    description: `Terms of use for the ${SITE_NAME} website.`,
+    description: `Terms of use for the ${SITE_NAME} website — ${CLINIC.legalName}, Alpha 1, Greater Noida.`,
   }),
   // Kept out of the index until this has had an actual legal review —
   // see the notice at the top of the page itself.

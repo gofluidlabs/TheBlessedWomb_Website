@@ -10,17 +10,18 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, keywordSet } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
-const TITLE = "The Patient Journey — Pregnancy & Gynaecology Care Process";
+const TITLE = "Pregnancy & Gynaecology Care — Patient Journey";
 const DESCRIPTION =
-  "From your first consultation to confident next steps — see the patient journey at The Blessed Womb, Dr. Jyoti Maternity, Infertility & Ultrasound Centre, Greater Noida.";
+  "See how care works at The Blessed Womb, Greater Noida — from your first consultation with Dr. Jyoti Gupta through antenatal visits, scans and next steps.";
 
 export const metadata = buildMetadata({
   path: "/process",
   title: TITLE,
   description: DESCRIPTION,
+  keywords: keywordSet("maternity", "ultrasound", "brand"),
 });
 
 export default function ProcessPage() {
