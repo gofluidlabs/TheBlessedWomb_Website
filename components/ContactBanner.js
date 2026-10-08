@@ -9,7 +9,7 @@ export default function ContactBanner() {
       </h1>
       <SmartImage
         src={IMG.contactBanner}
-        alt="Map and walking directions to The Blessed Womb, Obs & Gynae Clinic — from Alpha 1 Main Market, near St. Joseph's School"
+        alt="Map and walking directions to The Blessed Womb gynae clinic from Alpha 1 Main Market, near St. Joseph's School"
         className="contact-banner-img reveal"
       />
     </section>

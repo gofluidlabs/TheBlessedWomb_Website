@@ -6,21 +6,22 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata, keywordSet, sup } from "@/lib/seo";
+import { buildMetadata, sup } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
 // The "near me" / directions page. It targets the locality terms rather
 // than the doctor's name, because that is what people search once they
 // already intend to visit.
-const TITLE = `${sup("Best Gynae", "Gynae")} & Obs Clinic in Alpha 1, Greater Noida`;
+// Kept short enough that title + " | The Blessed Womb" stays within the
+// ~60 characters Google renders.
+const TITLE = `${sup("Best Gynae Clinic,", "Gynae Clinic in")} Alpha 1 Greater Noida`;
 const DESCRIPTION =
-  "Visit The Blessed Womb gynae & obs clinic at Block D, Alpha 1, Greater Noida — behind St. Joseph School. Address, directions and phone +91 88826 63284.";
+  "Visit The Blessed Womb gynae & obs clinic at Block D, Alpha 1, Greater Noida — behind St. Joseph School. Address, directions, map and phone +91 88826 63284.";
 
 export const metadata = buildMetadata({
   path: "/clinic",
   title: TITLE,
   description: DESCRIPTION,
-  keywords: keywordSet("local", "core", "brand"),
 });
 
 export default function ClinicPage() {
@@ -37,8 +38,8 @@ export default function ClinicPage() {
       <main>
         <PageIntro
           eyebrow="Clinic & Location"
-          title="Find The Blessed Womb"
-          subtitle="In Block D, Alpha I, Greater Noida — near St. Joseph School."
+          title="Gynaecology Clinic in Alpha 1, Greater Noida"
+          subtitle="The Blessed Womb is in Block D, Alpha I — behind St. Joseph School."
           crumb="Clinic"
         />
         <ClinicContent />

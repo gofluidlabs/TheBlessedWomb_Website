@@ -9,6 +9,7 @@ import {
 } from "@/lib/seo";
 import { FAQS } from "@/lib/faqData";
 import { getAllPosts } from "@/lib/blog";
+import { SERVICES } from "@/lib/services";
 
 /**
  * /llms.txt — a plain-markdown fact sheet for language models.
@@ -76,12 +77,7 @@ ${[
 
 ## Services
 
-- Antenatal care and pregnancy supervision
-- Clinically indicated pregnancy scans
-- Pregnancy and gynaecological ultrasound
-- Doppler studies
-- Gynaecological consultation
-- Infertility and fertility evaluation
+${SERVICES.map((s) => `- [${s.name}](${SITE_URL}/services/${s.slug}): ${s.cardSummary}`).join("\n")}
 
 ## Areas served
 
@@ -90,6 +86,8 @@ ${SITE_NAME} serves patients across Greater Noida and the surrounding area, incl
 ## Pages
 
 - [Home](${SITE_URL}/): overview of the clinic, services and ${DOCTOR.name}.
+- [All services](${SITE_URL}/services): antenatal care, pregnancy scans, Doppler, gynaecology and infertility care.
+- [Gallery](${SITE_URL}/gallery): photos from the clinic.
 - [About ${DOCTOR.name}](${SITE_URL}/about): the doctor's background, qualifications and approach.
 - [Clinic & location](${SITE_URL}/clinic): address, directions and how to reach the clinic in Alpha 1.
 - [Book an appointment](${SITE_URL}/contact): phone number and enquiry form.

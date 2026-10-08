@@ -29,6 +29,7 @@ const NAV = [
   { label: "Blog", href: "/blog", type: "link" },
   { label: "FAQs", href: "/#faq", type: "link" },
   { label: "Team", href: "/#team", type: "link" },
+  { label: "Gallery", href: "/gallery", type: "link" },
 ];
 
 const MEGA_MENUS = {
@@ -75,33 +76,33 @@ const MEGA_MENUS = {
       {
         label: "Antenatal Care & Pregnancy Supervision",
         icon: HeartHands,
-        href: "/#services",
+        href: "/services/antenatal-care",
         image: IMG.svc1,
       },
       {
-        label: "Clinically Indicated Pregnancy Scans",
-        icon: Microscope,
-        href: "/#services",
-        image: IMG.svc2,
-      },
-      {
-        label: "Pregnancy & Gynaecological Ultrasound",
+        label: "Pregnancy Scans & Ultrasound",
         icon: Pregnant,
-        href: "/#services",
-        image: IMG.svc4,
+        href: "/services/pregnancy-scans-ultrasound",
+        image: IMG.svc2,
       },
       {
         label: "Doppler Studies",
         icon: Stethoscope,
-        href: "/#services",
+        href: "/services/doppler-studies",
         image: IMG.svc3,
+      },
+      {
+        label: "Gynaecological & Infertility Care",
+        icon: Microscope,
+        href: "/services/gynaecological-care",
+        image: IMG.svc4,
       },
     ],
     cta: {
       eyebrow: "Complete Care of Motherhood",
       title: "Everything under one roof, guided by Dr. Jyoti Gupta.",
-      href: "/#services",
-      label: "View Services",
+      href: "/services",
+      label: "View All Services",
     },
   },
 };
@@ -181,7 +182,7 @@ export default function Header({ light = false }) {
     <header className={`site-header ${light ? "light" : ""}`}>
       <div className="container header-inner">
         <Link href="/" className="brand" onClick={closeAll}>
-          <img className="brand-logo" src={IMG.logoMark} alt="The Blessed Womb" />
+          <img className="brand-logo" src={IMG.logoMark} alt="The Blessed Womb" width="502" height="518" />
           <span className="brand-word">The Blessed Womb</span>
         </Link>
 

@@ -19,7 +19,7 @@ export default function MegaMenu({ menu, open, variant, onLinkClick }) {
               >
                 {item.image && (
                   <span className="ml-img">
-                    <SmartImage src={item.image} alt={item.label} />
+                    <SmartImage src={item.image} alt={item.label} sizes="300px" />
                   </span>
                 )}
                 <span className="ml-body">

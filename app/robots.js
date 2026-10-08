@@ -74,7 +74,8 @@ export default function robots() {
         disallow: ["/api/"],
       })),
     ],
+    // No `host:` field: Next would emit a "Host:" line, which only Yandex
+    // reads and Google flags as an unrecognised directive.
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   };
 }

@@ -9,11 +9,14 @@ import Breadcrumbs from "@/components/Blog/Breadcrumbs";
 import ArticleHeader from "@/components/Blog/ArticleHeader";
 import ArticleAuthor from "@/components/Blog/ArticleAuthor";
 import ArticleFAQ from "@/components/Blog/ArticleFAQ";
+import ArticleReferences from "@/components/Blog/ArticleReferences";
+import ArticleServices from "@/components/Blog/ArticleServices";
 import RelatedArticles from "@/components/Blog/RelatedArticles";
 import BlogCTA from "@/components/Blog/BlogCTA";
-import { buildMetadata, keywordSet } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import { articleSchema, breadcrumbSchema, faqSchema } from "@/lib/schema";
 import { getAllPosts, getPostBySlug, getRelatedPosts } from "@/lib/blog";
+import { getServicesForPost } from "@/lib/services";
 
 export function generateStaticParams() {
   return getAllPosts().map((post) => ({ slug: post.slug }));
@@ -31,10 +34,9 @@ export async function generateMetadata({ params }) {
     // builds a branded 1200x630 card from the post's featured photo.
     // Setting `ogImage` would override it and hand social platforms the
     // raw source file instead — see the note in that file.
-    // Each article carries its own `keywords` in frontmatter; the brand
-    // terms are appended so every article also reinforces the entity.
-    keywords: [...post.keywords, ...keywordSet("brand")],
     type: "article",
+    publishedTime: post.publishedAt,
+    modifiedTime: post.updatedAt,
   });
 }
 
@@ -44,6 +46,7 @@ export default async function BlogArticlePage({ params }) {
   if (!post) notFound();
 
   const related = getRelatedPosts(post);
+  const services = getServicesForPost(post.slug);
 
   return (
     <>
@@ -88,6 +91,8 @@ export default async function BlogArticlePage({ params }) {
             </div>
 
             <ArticleFAQ faq={post.faq} />
+            <ArticleReferences references={post.references} />
+            <ArticleServices services={services} />
             <ArticleAuthor />
             <p className="article-disclaimer">
               Medical information on this page is for educational purposes

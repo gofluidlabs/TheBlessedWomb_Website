@@ -21,7 +21,7 @@ export default function SmartImage({
   style,
   rounded,
   priority = false,
-  sizes = "100vw",
+  sizes = "(max-width: 768px) 100vw, 50vw",
   unoptimized = false,
 }) {
   const [failed, setFailed] = useState(false);
@@ -38,7 +38,7 @@ export default function SmartImage({
           fill
           sizes={sizes}
           priority={priority}
-          quality={90}
+          quality={75}
           unoptimized={unoptimized}
           onError={() => setFailed(true)}
         />

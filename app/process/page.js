@@ -10,7 +10,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata, keywordSet } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
 const TITLE = "Pregnancy & Gynaecology Care — Patient Journey";
@@ -21,7 +21,6 @@ export const metadata = buildMetadata({
   path: "/process",
   title: TITLE,
   description: DESCRIPTION,
-  keywords: keywordSet("maternity", "ultrasound", "brand"),
 });
 
 export default function ProcessPage() {

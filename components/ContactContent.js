@@ -17,8 +17,8 @@ export default function ContactContent() {
             <span className="accent">Touch</span>
           </h2>
           <p className="about-desc">
-            {CLINIC.name} — {CLINIC.legalName}. We&rsquo;d love to hear from
-            you and help with your care journey.
+            Book a consultation with {CLINIC.name} in {CLINIC.addressLocality}.
+            We&rsquo;d love to hear from you and help with your care journey.
           </p>
 
           <div className="contact-rows">

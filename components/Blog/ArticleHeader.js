@@ -20,9 +20,11 @@ export default function ArticleHeader({ post }) {
         <span>{formatDate(post.publishedAt)}</span>
         <span>&middot;</span>
         <span>{post.readingTime} min read</span>
+        <span>&middot;</span>
+        <span>Last medically reviewed {formatDate(post.updatedAt)}</span>
       </div>
       <div className="article-hero-img">
-        <SmartImage src={post.featuredImage} alt={post.featuredImageAlt} priority />
+        <SmartImage src={post.featuredImage} alt={post.featuredImageAlt} priority sizes="(max-width: 860px) 100vw, 820px" />
       </div>
     </header>
   );

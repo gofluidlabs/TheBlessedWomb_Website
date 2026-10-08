@@ -231,3 +231,11 @@ export const Users = (p) => (
     <path d="M16.5 13.6c2.2.5 3.9 2.4 3.9 5.4" />
   </svg>
 );
+
+export const Images = (p) => (
+  <svg viewBox="0 0 24 24" width="20" height="20" {...base} {...p}>
+    <rect x="3" y="4" width="18" height="16" rx="2.5" />
+    <circle cx="8.5" cy="9.5" r="1.6" />
+    <path d="M21 16l-5-5-8 9" />
+  </svg>
+);

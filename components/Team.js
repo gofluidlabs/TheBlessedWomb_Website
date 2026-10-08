@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
 import Link from "next/link";
 import SmartImage from "./SmartImage";
+import Coverflow from "./Coverflow";
 import { IMG } from "@/lib/images";
 import { socialUrl, realSocials } from "@/lib/seo";
 import {
@@ -33,42 +33,19 @@ const TEAM_SOCIALS = realSocials([
   { key: "instagram", label: "Instagram", icon: Instagram },
 ]);
 
-const WRAP = MEMBERS.length;
+const COVERFLOW_ITEMS = MEMBERS.map((m) => ({
+  id: m.name,
+  src: m.img,
+  alt: m.name,
+  title: m.name,
+  subtitle: m.role,
+}));
 
 export default function Team() {
-  const [active, setActive] = useState(0);
-  const touchStartX = useRef(null);
-
-  function handleTouchStart(e) {
-    touchStartX.current = e.touches[0].clientX;
-  }
-
-  function handleTouchEnd(e) {
-    if (touchStartX.current === null) return;
-    const delta = e.changedTouches[0].clientX - touchStartX.current;
-    const threshold = 40;
-    if (delta > threshold) {
-      setActive((i) => (i - 1 + WRAP) % WRAP);
-    } else if (delta < -threshold) {
-      setActive((i) => (i + 1) % WRAP);
-    }
-    touchStartX.current = null;
-  }
-
-  function slotClass(i) {
-    let diff = i - active;
-    if (diff > WRAP / 2) diff -= WRAP;
-    if (diff < -WRAP / 2) diff += WRAP;
-    if (diff === 0) return "tc-active";
-    if (diff === -1) return "tc-prev";
-    if (diff === 1) return "tc-next";
-    return "tc-hidden";
-  }
-
   return (
     <section className="section team" id="team">
-      <img className="team-cross" src={IMG.crossDeco} alt="" aria-hidden="true" />
-      <img className="team-silhouette" src={IMG.silhouette} alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className="team-cross" src={IMG.crossDeco} alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className="team-silhouette" src={IMG.silhouette} alt="" aria-hidden="true" />
       <div className="container">
         <div className="team-head">
           <div className="reveal" data-anim="left">
@@ -111,7 +88,7 @@ export default function Team() {
                   <Plus />
                 </span>
               )}
-              <SmartImage src={m.img} alt={m.name} className="team-photo" />
+              <SmartImage src={m.img} alt={m.name} className="team-photo" sizes="(max-width: 960px) 45vw, 260px" />
               <div className="team-info">
                 <h4>{m.name}</h4>
                 <span>{m.role}</span>
@@ -120,60 +97,22 @@ export default function Team() {
           ))}
         </div>
 
-        <div className="team-coverflow reveal" data-anim="up">
-          <div
-            className="tc-stage"
-            onTouchStart={handleTouchStart}
-            onTouchEnd={handleTouchEnd}
-          >
-            {MEMBERS.map((m, i) => (
-              <div
-                key={m.name}
-                className={`tc-card ${slotClass(i)}`}
-                role="button"
-                tabIndex={0}
-                aria-label={`Show ${m.name}`}
-                onClick={() => setActive(i)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    setActive(i);
-                  }
-                }}
-              >
-                <SmartImage src={m.img} alt={m.name} className="tc-photo" />
-                <div className="tc-caption">
-                  <h4>{m.name}</h4>
-                  <span>{m.role}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="tc-dots">
-            {MEMBERS.map((m, i) => (
-              <button
-                key={m.name}
-                type="button"
-                className={`tc-dot ${i === active ? "active" : ""}`}
-                aria-label={`Show ${m.name}`}
-                aria-current={i === active}
-                onClick={() => setActive(i)}
-              />
-            ))}
-          </div>
-        </div>
+        <Coverflow
+          className="team-coverflow reveal"
+          dataAnim="up"
+          items={COVERFLOW_ITEMS}
+        />
 
         <div className="team-foot reveal">
           <div className="tf-avatars">
             <span className="av">
-              <SmartImage src={IMG.doc} alt="Dr. Jyoti Gupta, Obstetrician & Gynaecologist, The Blessed Womb" />
+              <SmartImage src={IMG.doc} alt="Dr. Jyoti Gupta, Obstetrician & Gynaecologist, The Blessed Womb" sizes="48px" />
             </span>
             <span className="av call">
               <Phone width={18} height={18} />
             </span>
           </div>
-          <span>let&rsquo;s make something great work together.</span>
+          <span>Questions about your care? Meet Dr. Jyoti Gupta and the team.</span>
           <Link href="/about" className="viewall">
             Know More About Us <ArrowRight />
           </Link>

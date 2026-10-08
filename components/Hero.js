@@ -21,7 +21,6 @@ export default function Hero() {
         />
 
         {/* decorative elements */}
-        <img className="hero-molecule" src={IMG.molecule} alt="" aria-hidden="true" />
         <img className="hero-steth" src={IMG.stethoscope} alt="" aria-hidden="true" />
       </div>
 
@@ -42,9 +41,9 @@ export default function Hero() {
         </div>
 
         <p className="hero-sub reveal" data-anim="up" data-delay="0.2">
-          The Blessed Womb, Under Dr. Jyoti Maternity, Infertility &amp;
-          Ultrasound Centre, Provides Antenatal Care And Clinically Indicated
-          Pregnancy Scans Under The Supervision Of Dr. Jyoti Gupta.
+          The Blessed Womb Provides Antenatal Care And Clinically Indicated
+          Pregnancy Scans Under The Supervision Of Dr. Jyoti Gupta, In Alpha
+          I, Greater Noida.
         </p>
       </div>
 

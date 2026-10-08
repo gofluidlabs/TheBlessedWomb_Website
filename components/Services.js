@@ -1,38 +1,67 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
 import { Plus, HeartHands, Baby, Pregnant, Stethoscope, ArrowRight } from "./Icons";
 
+// Each card lists what THAT service covers. They used to share one set of
+// four bullets, which read as duplicate content to crawlers and gave a
+// visitor no reason to pick one card over another.
 const SERVICES = [
   {
     title: "Antenatal & Pregnancy Care",
+    alt: "Expectant couple sitting on a sofa looking at baby clothes together",
+    href: "/services/antenatal-care",
     img: IMG.svc1,
     icon: HeartHands,
+    points: [
+      "First consultation & pregnancy dating",
+      "Maternal & fetal monitoring",
+      "Nutrition, supplements & vaccination guidance",
+      "Birth & postpartum planning",
+    ],
   },
   {
     title: "Pregnancy Scans & Ultrasound",
+    alt: "Pregnant woman resting on a bed with an ultrasound probe on her belly",
+    href: "/services/pregnancy-scans-ultrasound",
     img: IMG.svc2,
     icon: Pregnant,
+    points: [
+      "Clinically indicated pregnancy scans",
+      "NT, anomaly & growth scans",
+      "Abdominal & pelvic sonography",
+      "Gynaecological ultrasound",
+    ],
   },
   {
     title: "Doppler & Diagnostic Studies",
+    alt: "Adult hands gently holding a newborn's feet",
+    href: "/services/doppler-studies",
     img: IMG.svc3,
     icon: Baby,
+    points: [
+      "Doppler blood-flow studies",
+      "Third-trimester growth & wellbeing checks",
+      "Studies advised when clinically indicated",
+      "Findings explained at your visit",
+    ],
   },
   {
     title: "Gynaecological & Infertility Care",
+    alt: "Smiling expectant couple relaxing together on a sofa",
+    href: "/services/gynaecological-care",
     img: IMG.svc4,
     icon: Stethoscope,
+    points: [
+      "Irregular periods & PMOS / PCOS",
+      "Routine women's health checkups",
+      "Fertility evaluation for both partners",
+      "Pelvic ultrasound & diagnostics",
+    ],
   },
-];
-
-const POINTS = [
-  "Antenatal Care & Pregnancy Supervision",
-  "Clinically Indicated Pregnancy Scans",
-  "Pregnancy & Gynaecological Ultrasound",
-  "Doppler Studies",
 ];
 
 export default function Services() {
@@ -52,7 +81,7 @@ export default function Services() {
 
   return (
     <section className="section services" id="services">
-      <img className="services-hex" src={IMG.hexBg} alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className="services-hex" src={IMG.hexBg} alt="" aria-hidden="true" />
       <div className="container">
         <div className="services-head reveal">
           <span className="eyebrow">Services</span>
@@ -72,21 +101,25 @@ export default function Services() {
                   <span className="svc-plus">
                     <Plus />
                   </span>
-                  <h3>{s.title}</h3>
+                  <h3>
+                    <Link href={s.href}>{s.title}</Link>
+                  </h3>
                   <div className="svc-img">
                     <div className="svc-img-inner">
-                      <SmartImage src={s.img} alt={`${s.title} at The Blessed Womb, Greater Noida`} />
+                      <SmartImage src={s.img} alt={s.alt} sizes="(max-width: 620px) 80vw, 400px" />
                     </div>
                     <span className="svc-badge">
                       <Icon />
                     </span>
                   </div>
                   <ul>
-                    {POINTS.map((p) => (
+                    {s.points.map((p) => (
                       <li key={p}>{p}</li>
                     ))}
                   </ul>
-                  <div className="svc-more">MORE</div>
+                  <Link href={s.href} className="svc-more">
+                    MORE
+                  </Link>
                 </article>
               );
             })}
@@ -101,6 +134,14 @@ export default function Services() {
             <ArrowRight />
           </button>
         </div>
+
+        <p className="services-all reveal" data-anim="up">
+          <Link href="/services">View all services</Link>
+          {" · "}
+          <Link href="/services/pmos-pcos-care">PMOS / PCOS care</Link>
+          {" · "}
+          <Link href="/services/infertility-care">Infertility care</Link>
+        </p>
       </div>
     </section>
   );
