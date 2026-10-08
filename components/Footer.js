@@ -4,6 +4,7 @@ import Link from "next/link";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
 import { CLINIC, socialUrl, realSocials } from "@/lib/seo";
+import { SERVICES, PCPNDT_NOTICE } from "@/lib/services";
 import {
   ArrowUpRight,
   Location,
@@ -27,28 +28,21 @@ const SOCIAL_LINKS = realSocials([
 
 const QUICK = [
   { label: "About", href: "/about" },
-  { label: "Our Services", href: "/#services" },
-  { label: "Our Process", href: "/#process" },
+  { label: "Our Services", href: "/services" },
+  { label: "Our Process", href: "/process" },
   { label: "Our Team", href: "/#team" },
+  { label: "Gallery", href: "/gallery" },
   { label: "FAQs", href: "/#faq" },
   { label: "Clinic & Location", href: "/clinic" },
   { label: "Health Resources", href: "/blog" },
 ];
-const SERVICES = [
-  "Antenatal Care",
-  "Pregnancy Scans & Ultrasound",
-  "Doppler Studies",
-  "Gynaecological Care",
-  "Infertility Care",
-];
-
 export default function Footer() {
   return (
     <div className="footer-wrap">
-      <img className="footer-embryo" src={IMG.footerBg} alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className="footer-embryo" src={IMG.footerBg} alt="" aria-hidden="true" />
       <div className="cta-banner reveal" data-anim="scale">
         <SmartImage src={IMG.ctaBaby} alt="" className="cta-bg" />
-        <img className="cta-stripe" src={IMG.ctaStripe} alt="" aria-hidden="true" />
+        <img loading="lazy" decoding="async" className="cta-stripe" src={IMG.ctaStripe} alt="" aria-hidden="true" />
         <div className="cta-left">
           <h3>Comprehensive antenatal care, connect with us now</h3>
         </div>
@@ -93,9 +87,9 @@ export default function Footer() {
             <div className="reveal" data-delay="0.2">
               <h4>Services</h4>
               <ul className="footer-links">
-                {SERVICES.map((l) => (
-                  <li key={l}>
-                    <Link href="/#services">{l}</Link>
+                {SERVICES.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/services/${s.slug}`}>{s.name}</Link>
                   </li>
                 ))}
               </ul>
@@ -129,7 +123,7 @@ export default function Footer() {
 
           <div className="footer-newsletter">
             <span className="fn-brand">
-              <img src={IMG.logoMark} alt="The Blessed Womb" className="fn-logo" />
+              <img loading="lazy" decoding="async" src={IMG.logoMark} alt="The Blessed Womb" className="fn-logo" width="502" height="518" />
               The Blessed Womb
             </span>
             <div className="footer-social">
@@ -162,7 +156,10 @@ export default function Footer() {
           </div>
 
           <div className="footer-bottom">
-            <p>© Copyright 2026 {CLINIC.name} — {CLINIC.legalName}</p>
+            <div>
+              <p>© Copyright 2026 {CLINIC.name}, {CLINIC.addressLocality}</p>
+              <p className="footer-pcpndt">{PCPNDT_NOTICE}</p>
+            </div>
             <div className="fb-links">
               <Link href="/terms">Terms &amp; Condition</Link>
               <Link href="/privacy-policy">Privacy Policy</Link>

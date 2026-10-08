@@ -5,10 +5,31 @@ import Link from "next/link";
 import { HeartHands, Microscope, Pregnant, Files, ArrowRight } from "./Icons";
 
 const STEPS = [
-  { title: "Initial Consultation", icon: HeartHands, up: false },
-  { title: "Antenatal Monitoring", icon: Microscope, up: true },
-  { title: "Pregnancy Scan & Ultrasound", icon: Pregnant, up: false, active: true },
-  { title: "Continued Care", icon: Files, up: true },
+  {
+    title: "Initial Consultation",
+    desc: "A conversation about your concerns, medical history and previous reports, so your care starts from a clear picture.",
+    icon: HeartHands,
+    up: false,
+  },
+  {
+    title: "Antenatal Monitoring",
+    desc: "Regular checkups to follow your health and your baby's growth, with a visit schedule set around your pregnancy.",
+    icon: Microscope,
+    up: true,
+  },
+  {
+    title: "Pregnancy Scan & Ultrasound",
+    desc: "Clinically indicated scans at the stages your doctor advises, explained in plain language at the visit.",
+    icon: Pregnant,
+    up: false,
+    active: true,
+  },
+  {
+    title: "Continued Care",
+    desc: "Follow-up, birth and postpartum planning, and support for ongoing gynaecological or fertility needs.",
+    icon: Files,
+    up: true,
+  },
 ];
 
 export default function Process() {
@@ -53,7 +74,7 @@ export default function Process() {
                     <Icon width={54} height={54} />
                   </div>
                   <h3>{s.title}</h3>
-                  <p>Our patient assessment process is designed to evaluate.</p>
+                  <p>{s.desc}</p>
                   {i < STEPS.length - 1 && (
                     <span className="p-arrow">
                       <ArrowRight width={40} height={40} />

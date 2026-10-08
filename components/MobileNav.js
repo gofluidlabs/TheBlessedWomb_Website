@@ -14,10 +14,11 @@ import {
   Milestone,
   Files,
   Users,
+  Images,
 } from "./Icons";
 
 const CARE_ITEMS = [
-  { label: "Our Services", href: "/#services", icon: Stethoscope },
+  { label: "Our Services", href: "/services", icon: Stethoscope },
   { label: "Our Process", href: "/process", icon: Milestone },
   { label: "Health Blog", href: "/blog", icon: Files },
 ];
@@ -25,6 +26,7 @@ const CARE_ITEMS = [
 const ABOUT_ITEMS = [
   { label: "About Dr. Jyoti Gupta", href: "/about", icon: UserDoc },
   { label: "Our Team", href: "/#team", icon: Users },
+  { label: "Gallery", href: "/gallery", icon: Images },
 ];
 
 export default function MobileNav() {
@@ -63,8 +65,9 @@ export default function MobileNav() {
   }
 
   const isHome = pathname === "/";
-  const isAbout = pathname === "/about";
+  const isAbout = pathname === "/about" || pathname === "/gallery";
   const isCare =
+    pathname === "/services" || pathname.startsWith("/services/") ||
     pathname === "/process" || pathname === "/blog" || pathname.startsWith("/blog/");
   const isContact = pathname === "/contact";
 

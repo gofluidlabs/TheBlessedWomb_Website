@@ -4,7 +4,7 @@ import { Fredoka, Mulish } from "next/font/google";
 import WelcomeModal from "@/components/WelcomeModal";
 import JsonLd from "@/components/JsonLd";
 import Analytics from "@/components/Analytics";
-import { SITE_URL, SITE_NAME, keywordSet, sup } from "@/lib/seo";
+import { SITE_URL, SITE_NAME, sup } from "@/lib/seo";
 import { organizationGraph } from "@/lib/schema";
 import "./globals.css";
 
@@ -40,12 +40,13 @@ export const metadata = {
   },
   description: DESCRIPTION,
   applicationName: SITE_NAME,
-  keywords: keywordSet("brand", "core", "local"),
   authors: [{ name: "Dr. Jyoti Gupta", url: `${SITE_URL}/about` }],
   creator: "Dr. Jyoti Gupta",
   publisher: SITE_NAME,
   category: "Health",
-  alternates: { canonical: SITE_URL },
+  // No canonical here on purpose: every indexable page sets its own via
+  // buildMetadata(). A canonical in the root layout is inherited by pages
+  // without one (e.g. the 404 page), telling Google they are the home page.
   // Icons come from the app/ file conventions (favicon.ico, icon.png,
   // apple-icon.png) so Next emits the right <link> tags automatically and
   // /favicon.ico — the path Google's favicon crawler falls back to — is a
@@ -105,7 +106,7 @@ export const viewport = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${fredoka.variable} ${mulish.variable}`}>
+    <html lang="en-IN" className={`${fredoka.variable} ${mulish.variable}`}>
       <body>
         {process.env.NEXT_PUBLIC_GTM_ID && (
           <>

@@ -31,6 +31,7 @@ const PHASES = [
     icon: Phone,
     side: "left",
     image: IMG.processCard1,
+    alt: "Illustration of a doctor with a tablet speaking with a patient during a first consultation",
     imagePosition: "center",
   },
   {
@@ -49,6 +50,7 @@ const PHASES = [
     icon: HeartHands,
     side: "right",
     image: IMG.processCard2,
+    alt: "Illustration of a doctor and a patient reviewing an ultrasound image on a tablet",
     imagePosition: "center",
   },
   {
@@ -67,6 +69,7 @@ const PHASES = [
     icon: Microscope,
     side: "left",
     image: IMG.processCard3,
+    alt: "Illustration of a doctor explaining ultrasound findings on a tablet to a patient",
     imagePosition: "center",
   },
   {
@@ -85,6 +88,7 @@ const PHASES = [
     icon: Files,
     side: "right",
     image: IMG.processCard4,
+    alt: "Illustration of a care plan on a clipboard beside a tablet and a stethoscope on a desk",
     imagePosition: "center",
   },
   {
@@ -103,6 +107,7 @@ const PHASES = [
     icon: MedKit,
     side: "left",
     image: IMG.processCard5,
+    alt: "Illustration of a desk with a notebook, supplements and a handwritten note",
     imagePosition: "center",
   },
   {
@@ -121,6 +126,7 @@ const PHASES = [
     icon: Growth,
     side: "right",
     image: IMG.processCard6,
+    alt: "Illustration of a smiling pregnant woman at a desk with a calendar and scan printouts",
     imagePosition: "center",
   },
   {
@@ -139,6 +145,7 @@ const PHASES = [
     icon: UserDoc,
     side: "left",
     image: IMG.processCard7,
+    alt: "Illustration of a checklist on a tablet, a notebook and a stethoscope on a desk",
     imagePosition: "center",
   },
   {
@@ -157,6 +164,7 @@ const PHASES = [
     icon: Milestone,
     side: "right",
     image: IMG.processCard8,
+    alt: "Illustration of pastel blocks with care icons beside a notebook and a cup of tea",
     imagePosition: "center",
   },
   {
@@ -175,6 +183,7 @@ const PHASES = [
     icon: Stethoscope,
     side: "left",
     image: IMG.processCard9,
+    alt: "Illustration of a smiling woman at a desk beside a checklist of next steps",
     imagePosition: "center",
   },
 ];

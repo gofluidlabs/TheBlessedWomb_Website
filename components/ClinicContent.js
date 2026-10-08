@@ -1,6 +1,7 @@
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
-import { CLINIC, DOCTOR, OPENING_HOURS } from "@/lib/seo";
+import Link from "next/link";
+import { CLINIC, DOCTOR, OPENING_HOURS, SOCIAL } from "@/lib/seo";
 import { Location, Phone, Clock, ArrowUpRight } from "./Icons";
 
 export default function ClinicContent() {
@@ -24,9 +25,9 @@ export default function ClinicContent() {
             <span className="accent">Alpha I, Greater Noida</span>
           </h2>
           <p className="about-desc">
-            {CLINIC.name} — {CLINIC.legalName}, led by {DOCTOR.name} (
-            {DOCTOR.jobTitle}) — is located in {CLINIC.streetAddress}, easily
-            reachable from Alpha 1 Main Market.
+            {CLINIC.name}, led by {DOCTOR.name} ({DOCTOR.jobTitle}), is located in
+            {" "}{CLINIC.streetAddress}, easily reachable from Alpha 1 Main
+            Market and Pari Chowk.
           </p>
 
           <div className="contact-rows">
@@ -56,7 +57,7 @@ export default function ClinicContent() {
                 <span>Hours</span>
                 <strong style={{ fontSize: 15 }}>
                   {OPENING_HOURS
-                    ? "See below"
+                    ? OPENING_HOURS.map((h) => `${h.days.join(", ")} ${h.opens}–${h.closes}`).join(" · ")
                     : "Please call ahead to confirm today's timings"}
                 </strong>
               </div>
@@ -82,6 +83,49 @@ export default function ClinicContent() {
               </span>
             </a>
           </div>
+        </div>
+      </div>
+
+      <div className="container clinic-extra">
+        <div className="clinic-map reveal" data-anim="up">
+          <iframe
+            title={`Map showing ${CLINIC.name}, ${CLINIC.streetAddress}`}
+            src={`https://www.google.com/maps?q=${encodeURIComponent(
+              `${CLINIC.name}, ${CLINIC.streetAddress}, ${CLINIC.addressRegion} ${CLINIC.postalCode}`
+            )}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+
+        <div className="clinic-first-visit reveal" data-anim="up">
+          <h2 className="section-title">
+            Your <span className="accent">first visit</span>
+          </h2>
+          <p className="about-desc">
+            To make the most of your consultation, please bring:
+          </p>
+          <ul className="clinic-bring">
+            <li>Any previous medical, pregnancy or scan reports</li>
+            <li>A list of the medicines and supplements you take</li>
+            <li>The dates of your last periods, if relevant</li>
+            <li>Your questions — write them down so none are forgotten</li>
+          </ul>
+          <p className="about-desc">
+            Call {CLINIC.phone} to book, or use our{" "}
+            <Link href="/contact">appointment form</Link>. Not sure what you
+            need? See our <Link href="/services">services</Link>, or read
+            genuine patient feedback on our{" "}
+            <a
+              href={SOCIAL.googleBusinessProfile}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Google Business Profile
+            </a>
+            .
+          </p>
         </div>
       </div>
     </section>

@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata, keywordSet } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 import { getAllPosts, getFeaturedPost, CATEGORIES } from "@/lib/blog";
 
@@ -20,7 +20,6 @@ export const metadata = buildMetadata({
   path: "/blog",
   title: TITLE,
   description: DESCRIPTION,
-  keywords: keywordSet("maternity", "fertility", "brand"),
 });
 
 // Keep only the fields the client-side filter component actually needs —

@@ -10,6 +10,12 @@ const nextConfig = {
       { protocol: "https", hostname: "images.pexels.com" },
     ],
     qualities: [75, 90],
+    // Cap the generated widths. The Next.js default goes up to 3840px, and
+    // with an unspecified `sizes` every image was being requested at that
+    // width — a 4K-wide file for a phone screen. Nothing on this site is
+    // displayed wider than ~1600 CSS px.
+    deviceSizes: [360, 480, 640, 768, 1024, 1280, 1600],
+    imageSizes: [32, 48, 64, 96, 128, 192, 256, 384],
     // AVIF first, WebP second, original as the last resort. AVIF is
     // typically 20-30% smaller than WebP at the same visual quality, and
     // the photo-heavy hero/service sections are the largest part of this
@@ -83,8 +89,10 @@ const nextConfig = {
       { source: "/blogs", destination: "/blog", permanent: true },
       { source: "/articles", destination: "/blog", permanent: true },
       { source: "/news", destination: "/blog", permanent: true },
-      { source: "/services", destination: "/#services", permanent: true },
-      { source: "/treatments", destination: "/#services", permanent: true },
+      // /services is a real page now (hub + /services/<slug>), so it must
+      // NOT be redirected — a redirect here would shadow the route.
+      { source: "/treatments", destination: "/services", permanent: true },
+      { source: "/service", destination: "/services", permanent: true },
       { source: "/faq", destination: "/#faq", permanent: true },
       { source: "/faqs", destination: "/#faq", permanent: true },
       { source: "/privacy", destination: "/privacy-policy", permanent: true },

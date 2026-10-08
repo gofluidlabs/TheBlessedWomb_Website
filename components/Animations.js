@@ -72,6 +72,9 @@ export default function Animations() {
           el.textContent = end.toLocaleString() + suffix;
           return;
         }
+        // The HTML ships the final value (so crawlers read "20+", not "0+");
+        // start the count-up from zero only now that JS is running.
+        el.textContent = "0" + suffix;
         const obj = { val: 0 };
         gsap.to(obj, {
           val: end,

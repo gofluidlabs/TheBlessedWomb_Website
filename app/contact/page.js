@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata, keywordSet } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo";
 import { webPageSchema, breadcrumbSchema } from "@/lib/schema";
 
 // Booking-intent page: the title carries the action plus the locality so it
@@ -18,7 +18,6 @@ export const metadata = buildMetadata({
   path: "/contact",
   title: TITLE,
   description: DESCRIPTION,
-  keywords: keywordSet("core", "local", "brand"),
 });
 
 export default function ContactPage() {

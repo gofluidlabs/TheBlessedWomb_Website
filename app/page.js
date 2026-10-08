@@ -8,11 +8,14 @@ import Process from "@/components/Process";
 import Faq from "@/components/Faq";
 import { FAQS } from "@/lib/faqData";
 import Team from "@/components/Team";
+import GallerySection from "@/components/GallerySection";
+import LatestArticles from "@/components/LatestArticles";
+import { getGalleryImages } from "@/lib/gallery";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
 import Animations from "@/components/Animations";
 import JsonLd from "@/components/JsonLd";
-import { buildMetadata, keywordSet, sup } from "@/lib/seo";
+import { buildMetadata, sup } from "@/lib/seo";
 import { webPageSchema, faqSchema } from "@/lib/schema";
 
 // Front-loaded with the highest-intent local query. The brand name stays in
@@ -33,10 +36,10 @@ export const metadata = buildMetadata({
   ogTitle: "The Blessed Womb — Dr. Jyoti Gupta",
   ogDescription:
     "Obstetrician & Gynaecologist in Alpha 1, Greater Noida. Antenatal care, pregnancy scans, ultrasound and gynaecological care. 20+ years. Call +91 88826 63284.",
-  keywords: keywordSet("brand", "core", "maternity", "ultrasound", "local"),
 });
 
 export default function Home() {
+  const galleryItems = getGalleryImages();
   return (
     <>
       <JsonLd data={webPageSchema({ path: "/", title: TITLE, description: DESCRIPTION })} />
@@ -51,6 +54,8 @@ export default function Home() {
         <Process />
         <Faq />
         <Team />
+        <GallerySection items={galleryItems} />
+        <LatestArticles />
       </main>
       <Footer />
       <BackToTop />

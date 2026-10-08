@@ -15,7 +15,7 @@ export default function BlogCard({ post }) {
   return (
     <article className="blog-card">
       <Link href={`/blog/${post.slug}`} className="blog-card-img">
-        <SmartImage src={post.featuredImage} alt={post.featuredImageAlt} />
+        <SmartImage src={post.featuredImage} alt={post.featuredImageAlt} sizes="(max-width: 620px) 100vw, (max-width: 960px) 50vw, 400px" />
       </Link>
       <div className="blog-card-body">
         <span className="blog-card-category">{post.category}</span>

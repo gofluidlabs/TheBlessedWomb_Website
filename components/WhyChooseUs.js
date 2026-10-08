@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import SmartImage from "./SmartImage";
 import { IMG } from "@/lib/images";
 import {
@@ -22,7 +23,7 @@ const RIGHT = [
 export default function WhyChooseUs() {
   return (
     <section className="section why" id="why">
-      <img className="why-shape" src={IMG.shapeDeco} alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className="why-shape" src={IMG.shapeDeco} alt="" aria-hidden="true" />
       <div className="container">
         <div className="why-head reveal">
           <span className="eyebrow">Why Choose Us</span>
@@ -51,10 +52,16 @@ export default function WhyChooseUs() {
           <div className="why-center reveal" data-anim="scale">
             <div className="why-doctor">
               <span className="doc-circle" />
-              <img
+              {/* next/image (not a raw <img>): the source is a 1.5MB
+                  transparent PNG, so it must be resized and served as
+                  AVIF/WebP, with width/height reserved to avoid layout shift. */}
+              <Image
                 src={IMG.whyDoctor}
                 alt="Dr. Jyoti Gupta, Obstetrician & Gynaecologist at The Blessed Womb, Greater Noida"
                 className="doc-portrait"
+                width={1145}
+                height={1374}
+                sizes="(max-width: 768px) 70vw, 420px"
               />
             </div>
           </div>
@@ -80,11 +87,14 @@ export default function WhyChooseUs() {
               <Growth />
             </div>
             <h3>
-              <span data-count="20" data-suffix="+">0+</span>
+              {/* The server-rendered HTML carries the FINAL number. Animations.js
+                resets it to 0 on the client and counts up, so crawlers and
+                no-JS visitors see "20+", never "0+". */}
+              <span data-count="20" data-suffix="+">20+</span>
             </h3>
             <p>Years of Experience in Women&rsquo;s Healthcare</p>
           </div>
-          <SmartImage src={IMG.whyBaby} alt="" className="why-baby masked-clover" />
+          <SmartImage src={IMG.whyBaby} alt="A newborn's tiny hand holding an adult's finger" className="why-baby masked-clover" sizes="(max-width: 768px) 80vw, 520px" />
         </div>
 
         <div className="why-cta">

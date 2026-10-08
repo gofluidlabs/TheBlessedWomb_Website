@@ -8,22 +8,22 @@ import { HeartHands, Microscope, Phone, ArrowUpRight } from "./Icons";
 export default function About() {
   return (
     <section className="section about" id="about">
-      <img className="about-silhouette" src={IMG.silhouette} alt="" aria-hidden="true" />
+      <img loading="lazy" decoding="async" className="about-silhouette" src={IMG.silhouette} alt="" aria-hidden="true" />
       <div className="container about-grid">
         <div className="about-gallery reveal" data-anim="left">
           <SmartImage
             src={IMG.aboutTall}
-            alt="Dr. Jyoti Gupta with a patient at The Blessed Womb, Greater Noida"
+            alt="Pregnant woman in a white dress holding a small red heart in front of her belly"
             className="g-tall"
           />
           <SmartImage
             src={IMG.aboutTop}
-            alt="Antenatal consultation at The Blessed Womb"
+            alt="Adult hands gently cradling a newborn's feet"
             className="g-img"
           />
           <SmartImage
             src={IMG.aboutBottom}
-            alt="Pregnancy care and support at The Blessed Womb"
+            alt="Smiling pregnant woman resting in bed and holding a stethoscope to her belly"
             className="g-img"
           />
           <div className="about-badge">

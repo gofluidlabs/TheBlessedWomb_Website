@@ -21,7 +21,7 @@ export default function Faq() {
           </h2>
           <SmartImage
             src={IMG.faqCouple}
-            alt="Couple consulting Dr. Jyoti Gupta about pregnancy and fertility care in Greater Noida"
+            alt="Smiling pregnant woman resting in bed and holding a stethoscope to her belly"
             className="faq-photo masked-clover"
           />
         </div>
@@ -31,26 +31,23 @@ export default function Faq() {
             const isOpen = open === i;
             return (
               <div key={item.q} className={`faq-item ${isOpen ? "open" : ""}`}>
-                <div
-                  className="faq-q"
-                  onClick={() => setOpen(isOpen ? -1 : i)}
-                  role="button"
-                  tabIndex={0}
-                  id={`faq-question-${i}`}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-answer-${i}`}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setOpen(isOpen ? -1 : i);
-                    }
-                  }}
-                >
-                  <span>{item.q}</span>
-                  <span className="faq-toggle">
-                    {isOpen ? <Close /> : <Plus />}
-                  </span>
-                </div>
+                {/* Real <h3> + native button: questions are headings for
+                    crawlers, and the toggle is keyboard-accessible. */}
+                <h3 className="faq-q-heading">
+                  <button
+                    type="button"
+                    className="faq-q"
+                    id={`faq-question-${i}`}
+                    aria-expanded={isOpen}
+                    aria-controls={`faq-answer-${i}`}
+                    onClick={() => setOpen(isOpen ? -1 : i)}
+                  >
+                    <span>{item.q}</span>
+                    <span className="faq-toggle">
+                      {isOpen ? <Close /> : <Plus />}
+                    </span>
+                  </button>
+                </h3>
                 <div
                   className="faq-a"
                   id={`faq-answer-${i}`}

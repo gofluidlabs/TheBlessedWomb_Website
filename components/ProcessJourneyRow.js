@@ -11,7 +11,7 @@ export default function ProcessJourneyRow({ phase }) {
         image={phase.image}
         imagePosition={phase.imagePosition}
         side={imageSide}
-        alt={phase.title}
+        alt={phase.alt || phase.title}
       />
     </div>
   );

@@ -1,8 +1,8 @@
-import { SITE_NAME, CLINIC } from "@/lib/seo";
+import { SITE_NAME } from "@/lib/seo";
 
 export default function manifest() {
   return {
-    name: `${SITE_NAME} — ${CLINIC.legalName}`,
+    name: SITE_NAME,
     short_name: SITE_NAME,
     description:
       "Obstetrics, gynaecology, pregnancy scans and ultrasound in Alpha I, Greater Noida, led by Dr. Jyoti Gupta.",
