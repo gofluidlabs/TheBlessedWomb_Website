@@ -80,7 +80,6 @@ export default async function BlogArticlePage({ params }) {
               items={[
                 { name: "Home", href: "/" },
                 { name: "Blog", href: "/blog" },
-                { name: post.category, href: "/blog" },
                 { name: post.title },
               ]}
             />

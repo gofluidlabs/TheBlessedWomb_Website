@@ -17,7 +17,7 @@ export default function ServiceCard({ service }) {
           <Link href={`/services/${service.slug}`}>{service.name}</Link>
         </h3>
         <p>{service.cardSummary}</p>
-        <Link href={`/services/${service.slug}`} className="svc-card-link">
+        <Link href={`/services/${service.slug}`} className="svc-card-link" aria-label={`Learn more about ${service.name}`}>
           Learn more <ArrowRight />
         </Link>
       </div>

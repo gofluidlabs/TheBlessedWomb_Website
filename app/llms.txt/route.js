@@ -53,6 +53,7 @@ export function GET() {
 
 ${[
   line("Clinic name", SITE_NAME),
+  line("Previous clinic name", CLINIC.previousName),
   line("Legal / registered name", CLINIC.legalName),
   line("Type", "Obstetrics & gynaecology clinic (maternity, infertility and ultrasound centre)"),
   line("Lead doctor", `${DOCTOR.name}, ${DOCTOR.jobTitle} (${DOCTOR.credentials})`),

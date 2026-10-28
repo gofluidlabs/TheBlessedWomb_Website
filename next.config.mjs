@@ -1,3 +1,5 @@
+import { CANONICAL_ORIGIN } from "./lib/site-url.mjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Don't advertise the framework in a response header — it's a free hint
@@ -73,6 +75,15 @@ const nextConfig = {
    */
   async redirects() {
     return [
+      // Vercel must serve the apex directly before this is deployed.
+      // Remove the old apex -> www domain redirect to avoid a loop.
+      // Match this site's www host only, leaving localhost and previews usable.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www\\.theblessedwomb\\.in" }],
+        destination: `${CANONICAL_ORIGIN}/:path*`,
+        permanent: true,
+      },
       { source: "/home", destination: "/", permanent: true },
       { source: "/index", destination: "/", permanent: true },
       { source: "/about-us", destination: "/about", permanent: true },

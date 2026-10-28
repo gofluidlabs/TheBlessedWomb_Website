@@ -28,7 +28,7 @@ export default function BlogCard({ post }) {
           <span>&middot;</span>
           <span>{post.readingTime} min read</span>
         </div>
-        <Link href={`/blog/${post.slug}`} className="blog-card-link">
+        <Link href={`/blog/${post.slug}`} className="blog-card-link" aria-label={`Read article: ${post.title}`}>
           Read Article <ArrowRight />
         </Link>
       </div>

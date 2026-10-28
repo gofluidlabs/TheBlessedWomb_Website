@@ -78,6 +78,14 @@ a {
   text-decoration: none;
 }
 
+.about-desc a,
+.article-meta a,
+.article-author-box a,
+.contact-rows a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -252,7 +260,7 @@ ul {
   padding: 12px 0;
 }
 .site-header .container {
-  max-width: 1400px;
+  max-width: 1600px;
 }
 .header-inner {
   display: flex;
@@ -373,7 +381,8 @@ ul {
 .header-right {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 12px;
+  flex-shrink: 0;
 }
 .header-cta {
   flex-shrink: 0;
@@ -2622,6 +2631,33 @@ button.faq-q {
 .contact-form button {
   justify-self: start;
 }
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.65;
+  transform: none;
+}
+.contact-form .cf-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.contact-form .cf-status {
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--pink-tint);
+  color: var(--plum);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.contact-form .cf-status-error {
+  border: 1px solid var(--coral);
+}
+.contact-form .cf-status a {
+  text-decoration: underline;
+}
 
 /* =========================================================
    WELCOME MODAL (5s after landing, links to the contact form)
@@ -2736,12 +2772,22 @@ button.faq-q {
 
 /* =========================================================
    HEADER / NAVIGATION — RESPONSIVE
-   The call button and "Book Appointment" button are never fully
-   hidden at any width — only their text labels collapse to
-   icon-only as space tightens. Nav LINKS move into the off-canvas
-   drawer once they no longer fit next to those buttons (~1250px),
-   well above the point where the buttons themselves need to shrink.
+   Desktop actions collapse their labels as space tightens.
+   At ≤1250px, navigation and booking move to the mobile bottom bar;
+   the header retains the brand and call button.
    ========================================================= */
+@media (min-width: 1251px) {
+  /* Reserve space for the brand and actions within the header container.
+     The eight navigation items must fit before their mobile breakpoint. */
+  .main-nav {
+    gap: 2px;
+    padding-inline: 10px;
+  }
+  .main-nav > a,
+  .main-nav > .nav-item > .mega-trigger {
+    padding-inline: 10px;
+  }
+}
 @media (max-width: 1599px) {
   /* Full header needs ~1600px unbroken — drop the "Call Us" label and
      phone number here, keep just the tappable phone icon. */
@@ -2749,14 +2795,12 @@ button.faq-q {
     display: none;
   }
 }
-@media (min-width: 1251px) and (max-width: 1300px) {
+@media (min-width: 1251px) and (max-width: 1365px) {
   /* Even with the phone block down to just its icon, the full-text CTA
      still doesn't fit alongside the nav links in this narrow band —
      collapse it to icon-only too. The label stays in the DOM (aria-label
      on the link covers the accessible name) so nothing is lost for
-     assistive tech. Scoped to stop at 1251px: below that, the nav links
-     are already in the off-canvas drawer (see next block) and there's
-     plenty of room again for the full-text button. */
+     assistive tech. Below 1251px, booking moves to the mobile bottom bar. */
   .header-right > .header-cta {
     padding: 8px;
     gap: 0;

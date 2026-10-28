@@ -117,7 +117,7 @@ export default function Services() {
                       <li key={p}>{p}</li>
                     ))}
                   </ul>
-                  <Link href={s.href} className="svc-more">
+                  <Link href={s.href} className="svc-more" aria-label={`Learn more about ${s.title}`}>
                     MORE
                   </Link>
                 </article>

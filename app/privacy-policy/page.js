@@ -91,9 +91,10 @@ export default function PrivacyPolicyPage() {
               <h2>Sharing Your Information</h2>
               <p>
                 We do not sell, rent, or share your information with third
-                parties for marketing purposes. Information you submit is
-                only seen by {CLINIC.name}'s own staff, for the purpose of
-                responding to you.
+                parties for marketing purposes. Enquiry details are sent
+                to {CLINIC.name}'s staff through Resend, our email delivery
+                provider, and processed by our hosting and email providers
+                to deliver your message and help us respond to you.
               </p>
 
               <h2>How Long We Keep Your Information</h2>
