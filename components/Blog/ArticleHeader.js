@@ -1,4 +1,6 @@
+import Link from "next/link";
 import SmartImage from "../SmartImage";
+import { DOCTOR } from "@/lib/seo";
 
 function formatDate(dateStr) {
   if (!dateStr) return "";
@@ -15,7 +17,11 @@ export default function ArticleHeader({ post }) {
       <span className="blog-card-category">{post.category}</span>
       <h1 className="section-title">{post.title}</h1>
       <div className="article-meta">
-        <span>By {post.author}</span>
+        <span>
+          By {post.author === DOCTOR.name ? (
+            <Link href="/about#doctor">{post.author}</Link>
+          ) : post.author}
+        </span>
         <span>&middot;</span>
         <span>{formatDate(post.publishedAt)}</span>
         <span>&middot;</span>

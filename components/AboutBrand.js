@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Location, Phone } from "./Icons";
 import { CLINIC } from "@/lib/seo";
 
@@ -22,6 +23,11 @@ export default function AboutBrand() {
           infertility-related care — all under the personal guidance of
           Dr. Jyoti Gupta.
         </p>
+        <p className="about-desc" style={{ maxWidth: 720, marginTop: 16 }}>
+          The clinic previously operated as {CLINIC.previousName} and now
+          uses the {CLINIC.name} brand, with Dr. Jyoti Gupta continuing to
+          lead the same clinic.
+        </p>
 
         <div className="contact-rows reveal" data-anim="up" data-delay="0.15" style={{ maxWidth: 480, marginTop: 30 }}>
           <div className="about-contact">
@@ -30,7 +36,9 @@ export default function AboutBrand() {
             </span>
             <div>
               <span>Visit Us</span>
-              <strong style={{ fontSize: 16 }}>{CLINIC.fullAddress}</strong>
+              <strong style={{ fontSize: 16 }}>
+                <Link href="/clinic">{CLINIC.fullAddress}</Link>
+              </strong>
             </div>
           </div>
           <div className="about-contact">

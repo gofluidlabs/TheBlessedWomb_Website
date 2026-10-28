@@ -58,7 +58,9 @@ export default function About() {
             in Greater Noida with {DOCTOR.experienceSentence}. Under
             Dr. Jyoti Maternity, Infertility &amp; Ultrasound Centre, The
             Blessed Womb walks beside you through antenatal care and every
-            step of your pregnancy journey.
+            step of your pregnancy journey. Find our{" "}
+            <Link href="/clinic">clinic in Alpha I, Greater Noida</Link>{" "}
+            and plan your visit.
           </p>
 
           <div className="about-divider" />
@@ -86,7 +88,7 @@ export default function About() {
 
           <div className="about-cta">
             <Link href="/about" className="btn">
-              About More
+              Meet Dr. Jyoti Gupta
               <span className="btn-ico">
                 <ArrowUpRight />
               </span>

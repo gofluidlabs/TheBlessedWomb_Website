@@ -1,0 +1,82 @@
+{
+  "preparedAt": "2026-10-29",
+  "timezone": "Asia/Kolkata",
+  "publicationStatus": "prepared_for_manual_publishing_not_published_or_scheduled",
+  "profile": {
+    "name": "The Blessed Womb : Dr Jyoti Gupta",
+    "mapsCid": "11026923784269056340"
+  },
+  "latestWebsiteArticle": {
+    "title": "PMOS (Formerly PCOS): Symptoms, Diagnosis and What Women Should Know",
+    "publishedAt": "2026-09-15",
+    "url": "https://theblessedwomb.in/blog/polyendocrine-metabolic-ovarian-syndrome-pmos-pcos"
+  },
+  "latestGbpPostVerified": false,
+  "posts": [
+    {
+      "week": 1,
+      "plannedDate": "2026-10-29",
+      "suggestedTime": null,
+      "title": "Anomaly scan in Greater Noida: what does it check?",
+      "topicType": "STANDARD",
+      "languageCode": "en",
+      "summary": "Anomaly scan in Greater Noida: what does it check?\n\nYour mid-pregnancy ultrasound is an opportunity to understand your baby's development and ask questions about the next steps in your care.\n\nThe anomaly scan, also called the Level II scan, examines your baby's developing structures. It also assesses growth and the placenta. It cannot detect every condition, and some views may need to be repeated if your baby's position makes them difficult to obtain.\n\nAt The Blessed Womb, Dr. Jyoti Gupta guides clinically indicated pregnancy scans in Alpha I, Greater Noida. Your doctor will advise the appropriate timing for your pregnancy.\n\nBring your previous scan reports and pregnancy records, and check any preparation instructions with the clinic before your visit.\n\nWe are in Block D, Alpha I, behind St. Joseph School. Tap Learn more to read about the scan and find our appointment enquiry link.",
+      "callToAction": {
+        "actionType": "LEARN_MORE",
+        "url": "https://theblessedwomb.in/services/anomaly-scan?utm_source=google&utm_medium=organic&utm_campaign=gbp_updates_2026_11&utm_content=week_01"
+      },
+      "publicationStatus": "draft",
+      "publishedAt": null,
+      "publicPostUrl": null
+    },
+    {
+      "week": 2,
+      "plannedDate": "2026-11-05",
+      "suggestedTime": "10:00:00",
+      "title": "Your first antenatal visit: a little preparation can help",
+      "topicType": "STANDARD",
+      "languageCode": "en",
+      "summary": "Your first antenatal visit: a little preparation can help\n\nRecently found out you are pregnant? Arrange your antenatal consultation early so you can discuss your health, pregnancy history and the care you may need.\n\nBefore your appointment, note the date of your last period, make a list of medicines and supplements you take, and gather any previous pregnancy or scan reports. Write down your questions too, including concerns about symptoms, food, work or existing health conditions.\n\nAt The Blessed Womb in Alpha I, Greater Noida, Dr. Jyoti Gupta provides antenatal care and pregnancy supervision. Tests, scans and follow-ups are planned around your individual needs.\n\nTap Learn more to see what antenatal care includes and find the clinic's appointment enquiry link. An enquiry is a request; the clinic will confirm availability.",
+      "callToAction": {
+        "actionType": "LEARN_MORE",
+        "url": "https://theblessedwomb.in/services/antenatal-care?utm_source=google&utm_medium=organic&utm_campaign=gbp_updates_2026_11&utm_content=week_02"
+      },
+      "publicationStatus": "draft",
+      "publishedAt": null,
+      "publicPostUrl": null
+    },
+    {
+      "week": 3,
+      "plannedDate": "2026-11-12",
+      "suggestedTime": "10:00:00",
+      "title": "Irregular periods? Bring a clearer picture to your consultation",
+      "topicType": "STANDARD",
+      "languageCode": "en",
+      "summary": "Irregular periods? Bring a clearer picture to your consultation\n\nIf your periods have become unpredictable or your usual pattern has changed, keeping a simple record can make your consultation more useful.\n\nNote when each period starts, how long bleeding lasts, any bleeding between periods, and symptoms such as pain or changes in flow. Also bring a list of medicines and any previous test reports.\n\nIrregular periods can have several causes. Symptoms alone do not establish a diagnosis, and treatment depends on the assessment.\n\nDr. Jyoti Gupta offers gynaecological consultation at The Blessed Womb, Block D, Alpha I, Greater Noida, behind St. Joseph School.\n\nTap Learn more to explore our gynaecological care and find the appointment enquiry link. You do not need to wait to collect several months of records before seeking advice.",
+      "callToAction": {
+        "actionType": "LEARN_MORE",
+        "url": "https://theblessedwomb.in/services/gynaecological-care?utm_source=google&utm_medium=organic&utm_campaign=gbp_updates_2026_11&utm_content=week_03"
+      },
+      "publicationStatus": "draft",
+      "publishedAt": null,
+      "publicPostUrl": null
+    },
+    {
+      "week": 4,
+      "plannedDate": "2026-11-19",
+      "suggestedTime": "10:00:00",
+      "title": "Fertility evaluation starts with understanding both partners",
+      "topicType": "STANDARD",
+      "languageCode": "en",
+      "summary": "Fertility evaluation starts with understanding both partners\n\nTrying for a pregnancy can bring many questions. A fertility consultation is a chance to discuss your history, understand which assessments may be useful and agree on the next steps.\n\nFertility concerns can involve either or both partners, so assessment should consider both. Bring previous reports, details of any earlier treatment, a medicines list and relevant menstrual records.\n\nAt The Blessed Womb in Alpha I, Greater Noida, Dr. Jyoti Gupta provides fertility evaluation and infertility-related care. Investigations and follow-up are advised according to your circumstances; everyone does not need the same tests or treatment.\n\nTap Learn more to read about fertility care and find our appointment enquiry link. The clinic will confirm availability before your visit.",
+      "callToAction": {
+        "actionType": "LEARN_MORE",
+        "url": "https://theblessedwomb.in/services/infertility-care?utm_source=google&utm_medium=organic&utm_campaign=gbp_updates_2026_11&utm_content=week_04"
+      },
+      "publicationStatus": "draft",
+      "publishedAt": null,
+      "publicPostUrl": null
+    }
+  ],
+  "publicationMode": "manual"
+}

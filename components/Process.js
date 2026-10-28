@@ -96,8 +96,8 @@ export default function Process() {
         </div>
 
         <p className="process-note reveal">
-          Let&rsquo;s take these simple steps together. Contact us to begin
-          your care journey.{" "}
+          Explore the <Link href="/process">full patient care journey</Link>,
+          or contact us to begin your care.{" "}
           <Link
             href="/contact"
             data-track="appointment_click"

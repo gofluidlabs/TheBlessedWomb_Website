@@ -15,6 +15,7 @@ import {
   Files,
   Users,
   Images,
+  Location,
 } from "./Icons";
 
 const CARE_ITEMS = [
@@ -25,6 +26,7 @@ const CARE_ITEMS = [
 
 const ABOUT_ITEMS = [
   { label: "About Dr. Jyoti Gupta", href: "/about", icon: UserDoc },
+  { label: "Clinic & Directions", href: "/clinic", icon: Location },
   { label: "Our Team", href: "/#team", icon: Users },
   { label: "Gallery", href: "/gallery", icon: Images },
 ];
@@ -65,7 +67,7 @@ export default function MobileNav() {
   }
 
   const isHome = pathname === "/";
-  const isAbout = pathname === "/about" || pathname === "/gallery";
+  const isAbout = pathname === "/about" || pathname === "/gallery" || pathname === "/clinic";
   const isCare =
     pathname === "/services" || pathname.startsWith("/services/") ||
     pathname === "/process" || pathname === "/blog" || pathname.startsWith("/blog/");

@@ -20,7 +20,7 @@ const routes = [
   { path: "/services", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-10-08" },
   { path: "/clinic", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-10-08" },
   { path: "/contact", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-09-21" },
-  { path: "/about", priority: 0.8, changeFrequency: "monthly", lastModified: "2026-10-08" },
+  { path: "/about", priority: 0.8, changeFrequency: "monthly", lastModified: "2026-10-24" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly", lastModified: "2026-10-08" },
   { path: "/process", priority: 0.7, changeFrequency: "monthly", lastModified: "2026-09-21" },
   { path: "/gallery", priority: 0.6, changeFrequency: "monthly", lastModified: "2026-10-08" },

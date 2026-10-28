@@ -1,3 +1,4 @@
+import Link from "next/link";
 import SmartImage from "../SmartImage";
 import { IMG } from "@/lib/images";
 import { DOCTOR, CLINIC } from "@/lib/seo";
@@ -10,12 +11,12 @@ export default function ArticleAuthor() {
       </span>
       <div>
         <span className="article-author-label">Written &amp; medically overseen by</span>
-        <strong>{DOCTOR.name}</strong>
+        <strong><Link href="/about#doctor">{DOCTOR.name}</Link></strong>
         <span className="article-author-role">
           {DOCTOR.jobTitle} &middot; {DOCTOR.credentials}
         </span>
         <span className="article-author-clinic">
-          {CLINIC.name}, {CLINIC.addressLocality}
+          <Link href="/clinic">{CLINIC.name}, {CLINIC.addressLocality}</Link>
         </span>
       </div>
     </div>
