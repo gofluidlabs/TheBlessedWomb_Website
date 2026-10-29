@@ -23,7 +23,7 @@ export default function PrivacyPolicyPage() {
           <div className="container article-container">
             <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: "Privacy Policy" }]} />
             <h1 className="section-title">Privacy Policy</h1>
-            <p className="article-meta">Last updated: September 2026</p>
+            <p className="article-meta">Last updated: 29 October 2026</p>
 
             <div className="article-prose">
               <p>
@@ -46,15 +46,21 @@ export default function PrivacyPolicyPage() {
               </p>
 
               <h2>Information We Collect</h2>
-              <p>When you use the enquiry form on this website (on the Contact page or the pop-up consultation form), we collect:</p>
+              <p>The enquiry form on the Contact page and pop-up consultation form prepares a WhatsApp message using the details you enter:</p>
               <ul>
                 <li>Your name</li>
                 <li>Phone number</li>
-                <li>Email address (optional)</li>
                 <li>Reason for your visit, selected from a short list</li>
                 <li>Preferred appointment date (optional)</li>
                 <li>Any message you choose to include</li>
               </ul>
+              <p>
+                These details are used in your browser to open a pre-filled
+                WhatsApp message. The website does not send the form to an email
+                service or save it in a website database. WhatsApp receives the
+                prepared text when its link opens; the clinic receives your
+                message only after you tap Send in WhatsApp.
+              </p>
               <p>
                 If you subscribe to our newsletter via the footer, we collect
                 only the email address you provide.
@@ -63,15 +69,16 @@ export default function PrivacyPolicyPage() {
 
               <h2>How We Use Your Information</h2>
               <p>
-                Information submitted through the enquiry form is used solely
+                Information you send to us through WhatsApp is used solely
                 to respond to your enquiry and to arrange or discuss a
                 consultation with {CLINIC.name}. Newsletter email addresses
                 are used only to send updates you've asked to receive.
               </p>
               <p>
-                Submitting the enquiry form is a request for contact, not a
-                confirmed appointment — a member of our team will reach out
-                to confirm details.
+                Opening WhatsApp does not send your enquiry. After you review
+                the message and tap Send, it is a request for contact, not a
+                confirmed appointment. The clinic will confirm availability
+                and the next steps.
               </p>
 
               <h2>Cookies and Tracking</h2>
@@ -91,10 +98,11 @@ export default function PrivacyPolicyPage() {
               <h2>Sharing Your Information</h2>
               <p>
                 We do not sell, rent, or share your information with third
-                parties for marketing purposes. Enquiry details are sent
-                to {CLINIC.name}'s staff through Resend, our email delivery
-                provider, and processed by our hosting and email providers
-                to deliver your message and help us respond to you.
+                parties for marketing purposes. The enquiry form opens
+                WhatsApp, a third-party messaging service, with the details
+                you entered. WhatsApp processes information according to its
+                own privacy policy. Once you send the message, {CLINIC.name}'s
+                staff can use it to respond to your enquiry.
               </p>
 
               <h2>How Long We Keep Your Information</h2>

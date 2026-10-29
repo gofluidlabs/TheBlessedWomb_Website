@@ -2,82 +2,56 @@
 
 import { ArrowUpRight } from "./Icons";
 import { trackEvent } from "@/lib/analytics";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { CONTACT_REASONS, CONTACT_LOCATIONS } from "@/lib/contact-options.mjs";
+import { buildWhatsAppEnquiry } from "@/lib/contact-whatsapp.mjs";
+import { CLINIC } from "@/lib/seo";
 
 export default function ContactForm({ idPrefix = "cf" }) {
-  const [status, setStatus] = useState("idle");
+  const [whatsappUrl, setWhatsappUrl] = useState("");
   const [error, setError] = useState("");
-  const sending = useRef(false);
-  const pendingSubmission = useRef(null);
 
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
     const form = e.currentTarget;
-    if (sending.current || !form.reportValidity()) return;
-    sending.current = true;
-    setStatus("sending");
+    if (!form.reportValidity()) return;
     setError("");
-
     try {
       const values = Object.fromEntries(new FormData(form));
-      values.formLocation = CONTACT_LOCATIONS[idPrefix] || "other";
-      const serialized = JSON.stringify(values);
-      // Reuse the key after a network failure so retrying an unchanged
-      // enquiry cannot send a second email if Resend already accepted it.
-      if (pendingSubmission.current?.serialized !== serialized) {
-        pendingSubmission.current = { serialized, id: crypto.randomUUID() };
-      }
-      const result = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...values, submissionId: pendingSubmission.current.id }),
-        signal: AbortSignal.timeout(15_000),
-      });
-      const data = await result.json().catch(() => null);
-      if (!result.ok || data?.ok !== true) {
-        throw new Error(data?.error || "Your enquiry could not be sent. Please try again or call the clinic.");
-      }
-      form.reset();
-      pendingSubmission.current = null;
-      setStatus("success");
-      trackEvent("contact_form_submit", {
-        form_location: values.formLocation,
+      const url = buildWhatsAppEnquiry(values, CLINIC.phone);
+      // Keep this synchronous with the click so browsers can open a new tab.
+      // noopener/noreferrer may return null even when it opens successfully.
+      window.open(url, "_blank", "noopener,noreferrer");
+      setWhatsappUrl(url);
+      trackEvent("whatsapp_click", {
+        form_location: CONTACT_LOCATIONS[idPrefix] || "other",
       });
     } catch (cause) {
-      setError(cause instanceof Error && !["TimeoutError", "AbortError", "TypeError"].includes(cause.name)
-        ? cause.message
-        : "We couldn't confirm your enquiry was sent. Please try again or call the clinic.");
-      setStatus("error");
-    } finally {
-      sending.current = false;
+      setWhatsappUrl("");
+      setError(cause instanceof Error ? cause.message : "WhatsApp could not open. Please call the clinic.");
     }
   }
 
   return (
     <>
       <h3>Book a Consultation</h3>
-      <form className="contact-form" onSubmit={handleSubmit} aria-busy={status === "sending"}>
+      <form className="contact-form" onSubmit={handleSubmit} onChange={() => { setWhatsappUrl(""); setError(""); }} aria-describedby={`${idPrefix}-whatsapp-note`}>
+        <p className="cf-note" id={`${idPrefix}-whatsapp-note`}>Your details will open in WhatsApp for {CLINIC.name}. Review the message and tap Send there to send your enquiry.</p>
         <div className="cf-row">
           <div>
             <label htmlFor={`${idPrefix}-name`}>Name</label>
-            <input id={`${idPrefix}-name`} name="name" type="text" placeholder="Your name" autoComplete="name" minLength={2} maxLength={100} disabled={status === "sending"} required />
+            <input id={`${idPrefix}-name`} name="name" type="text" placeholder="Your name" autoComplete="name" minLength={2} maxLength={100} required />
           </div>
           <div>
             <label htmlFor={`${idPrefix}-phone`}>Phone Number</label>
-            <input id={`${idPrefix}-phone`} name="phone" type="tel" placeholder="Your phone number" autoComplete="tel" pattern={"\\+?[0-9\\s\\(\\).\\-]{7,40}"} title="Enter a phone number with 7 to 15 digits; spaces, brackets, hyphens and a leading + are allowed." maxLength={40} disabled={status === "sending"} required />
+            <input id={`${idPrefix}-phone`} name="phone" type="tel" placeholder="Your phone number" autoComplete="tel" pattern={"\\+?[0-9\\s\\(\\).\\-]{7,40}"} title="Enter a phone number with 7 to 15 digits; spaces, brackets, hyphens and a leading + are allowed." maxLength={40} required />
           </div>
-        </div>
-
-        <div>
-          <label htmlFor={`${idPrefix}-email`}>Email</label>
-          <input id={`${idPrefix}-email`} name="email" type="email" placeholder="Your email address" autoComplete="email" maxLength={254} disabled={status === "sending"} />
         </div>
 
         <div className="cf-row">
           <div>
             <label htmlFor={`${idPrefix}-reason`}>Reason for Visit</label>
-            <select id={`${idPrefix}-reason`} name="reason" defaultValue="" disabled={status === "sending"}>
+            <select id={`${idPrefix}-reason`} name="reason" defaultValue="">
               <option value="" disabled>
                 Select a reason
               </option>
@@ -90,7 +64,7 @@ export default function ContactForm({ idPrefix = "cf" }) {
           </div>
           <div>
             <label htmlFor={`${idPrefix}-date`}>Preferred Date</label>
-            <input id={`${idPrefix}-date`} name="date" type="date" disabled={status === "sending"} />
+            <input id={`${idPrefix}-date`} name="date" type="date" />
           </div>
         </div>
 
@@ -100,7 +74,6 @@ export default function ContactForm({ idPrefix = "cf" }) {
             id={`${idPrefix}-message`}
             name="message"
             maxLength={2000}
-            disabled={status === "sending"}
             placeholder="Tell us a little about your requirement"
           />
         </div>
@@ -110,15 +83,15 @@ export default function ContactForm({ idPrefix = "cf" }) {
           <input id={`${idPrefix}-website`} name="website" type="text" tabIndex={-1} autoComplete="off" maxLength={200} />
         </div>
 
-        <button type="submit" className="btn" disabled={status === "sending"}>
-          {status === "sending" ? "Sending…" : "Send Enquiry"}
+        <button type="submit" className="btn">
+          Continue on WhatsApp
           <span className="btn-ico">
             <ArrowUpRight />
           </span>
         </button>
         <div aria-live="polite" aria-atomic="true">
-          {status === "success" && <p className="cf-status" role="status">Thank you. Your enquiry has been sent. The clinic will contact you to confirm availability. Your appointment is not yet confirmed.</p>}
-          {status === "error" && <p className="cf-status cf-status-error" role="alert">{error} <a href="tel:+918882663284">Call +91 88826 63284</a>.</p>}
+          {whatsappUrl && <div className="cf-status" role="status"><p>Your message is ready. Review it in WhatsApp and tap Send to deliver it. Your appointment is not confirmed.</p><button type="button" className="cf-whatsapp-fallback" onClick={() => window.location.assign(whatsappUrl)}>WhatsApp didn’t open? Open it in this tab</button></div>}
+          {error && <p className="cf-status cf-status-error" role="alert">{error} <a href={CLINIC.phoneHref}>Call {CLINIC.phone}</a>.</p>}
         </div>
       </form>
     </>

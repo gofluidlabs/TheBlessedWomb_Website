@@ -19,11 +19,11 @@ const routes = [
   { path: "/", priority: 1.0, changeFrequency: "weekly", lastModified: "2026-10-08" },
   { path: "/services", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-10-08" },
   { path: "/clinic", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-10-08" },
-  { path: "/contact", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-09-21" },
+  { path: "/contact", priority: 0.9, changeFrequency: "monthly", lastModified: "2026-10-29" },
   { path: "/about", priority: 0.8, changeFrequency: "monthly", lastModified: "2026-10-24" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly", lastModified: "2026-10-08" },
   { path: "/process", priority: 0.7, changeFrequency: "monthly", lastModified: "2026-09-21" },
-  { path: "/gallery", priority: 0.6, changeFrequency: "monthly", lastModified: "2026-10-08" },
+  { path: "/gallery", priority: 0.6, changeFrequency: "monthly", lastModified: "2026-10-29" },
 ];
 
 // Note: /privacy-policy and /terms are deliberately absent. Both are
