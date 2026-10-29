@@ -11,6 +11,7 @@ import {
   Phone,
   Send,
   Facebook,
+  Instagram,
   Twitter,
   Youtube,
   LinkedIn,
@@ -20,6 +21,7 @@ import {
 // been supplied yet is simply absent instead of shipping a live link to
 // twitter.com/PLACEHOLDER_UPDATE_ME.
 const SOCIAL_LINKS = realSocials([
+  { key: "instagram", label: "Instagram", icon: Instagram },
   { key: "twitter", label: "Twitter", icon: Twitter },
   { key: "facebook", label: "Facebook", icon: Facebook },
   { key: "youtube", label: "YouTube", icon: Youtube },

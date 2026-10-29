@@ -2631,10 +2631,20 @@ button.faq-q {
 .contact-form button {
   justify-self: start;
 }
-.contact-form button:disabled {
-  cursor: wait;
-  opacity: 0.65;
-  transform: none;
+.contact-form .cf-note {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.contact-form .cf-whatsapp-fallback {
+  margin-top: 10px;
+  border: 0;
+  background: transparent;
+  color: var(--plum);
+  font: inherit;
+  text-align: left;
+  text-decoration: underline;
+  cursor: pointer;
 }
 .contact-form .cf-honeypot {
   position: absolute;
